@@ -32,6 +32,9 @@ const defaultConfig = {
   apps: [
     'calculator',
     'text-editor',
+    'file-browser',
+    'terminal',
+    'settings',
     'browser',
     'todo-list'
   ],

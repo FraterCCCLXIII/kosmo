@@ -2,10 +2,28 @@
  * Taskbar
  * Running apps UI, minimize/maximize
  */
+// Import Heroicons
+import { 
+  CalculatorIcon, 
+  DocumentTextIcon, 
+  FolderIcon, 
+  CommandLineIcon, 
+  Cog6ToothIcon, 
+  GlobeAltIcon, 
+  ListBulletIcon,
+  SparklesIcon,
+  ClipboardDocumentCheckIcon,
+  CalendarIcon,
+  EnvelopeIcon,
+  PhotoIcon,
+  MusicalNoteIcon,
+  ChatBubbleLeftRightIcon
+} from '@heroicons/react/24/solid';
 
 // Taskbar state
 let taskbarElement = null;
 let runningApps = new Map();
+let iconMap = new Map();
 
 /**
  * Initialize the taskbar
@@ -16,6 +34,9 @@ export async function initTaskbar() {
   
   // Create taskbar element
   createTaskbarElement();
+  
+  // Initialize icon map
+  initIconMap();
   
   // Return public API
   return {
@@ -40,14 +61,20 @@ function createTaskbarElement() {
   taskbarElement.id = 'taskbar';
   taskbarElement.className = 'taskbar';
   taskbarElement.style.position = 'absolute';
-  taskbarElement.style.bottom = '0';
-  taskbarElement.style.left = '0';
-  taskbarElement.style.width = '100%';
+  taskbarElement.style.bottom = '10px';
+  taskbarElement.style.left = '50%';
+  taskbarElement.style.transform = 'translateX(-50%)';
+  taskbarElement.style.width = 'auto';
+  taskbarElement.style.maxWidth = '80%';
   taskbarElement.style.height = 'var(--taskbar-height)';
-  taskbarElement.style.backgroundColor = 'var(--color-bg-secondary)';
-  taskbarElement.style.borderTop = 'var(--border-width) solid var(--border-color)';
+  taskbarElement.style.backgroundColor = 'rgba(var(--color-bg-secondary-rgb), 0.8)';
+  taskbarElement.style.backdropFilter = 'blur(10px)';
+  taskbarElement.style.WebkitBackdropFilter = 'blur(10px)';
+  taskbarElement.style.borderRadius = '18px';
+  taskbarElement.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
   taskbarElement.style.display = 'flex';
   taskbarElement.style.alignItems = 'center';
+  taskbarElement.style.justifyContent = 'center';
   taskbarElement.style.padding = '0 var(--spacing-md)';
   taskbarElement.style.zIndex = 'var(--z-index-fixed)';
   
@@ -171,6 +198,26 @@ function createTaskbarElement() {
 }
 
 /**
+ * Initialize the icon map with Heroicons for different app types
+ */
+function initIconMap() {
+  // Map app IDs to Heroicons
+  iconMap.set('calculator', CalculatorIcon);
+  iconMap.set('text-editor', DocumentTextIcon);
+  iconMap.set('browser', GlobeAltIcon);
+  iconMap.set('todo-list', ClipboardDocumentCheckIcon);
+  iconMap.set('file-browser', FolderIcon);
+  iconMap.set('settings', Cog6ToothIcon);
+  iconMap.set('terminal', CommandLineIcon);
+  iconMap.set('calendar', CalendarIcon);
+  iconMap.set('mail', EnvelopeIcon);
+  iconMap.set('photos', PhotoIcon);
+  iconMap.set('music', MusicalNoteIcon);
+  iconMap.set('chat', ChatBubbleLeftRightIcon);
+  iconMap.set('ai', SparklesIcon);
+}
+
+/**
  * Add an app to the taskbar
  * @param {Object} app - App object
  * @param {Object} window - Window object
@@ -198,24 +245,29 @@ function addApp(app, window) {
   itemEl.className = 'taskbar-item';
   itemEl.dataset.appId = app.id;
   itemEl.dataset.windowId = window.id;
-  itemEl.style.height = 'calc(100% - 8px)';
+  itemEl.style.height = '40px';
+  itemEl.style.width = '40px';
   itemEl.style.display = 'flex';
   itemEl.style.alignItems = 'center';
-  itemEl.style.padding = '0 var(--spacing-sm)';
-  itemEl.style.borderRadius = 'var(--border-radius-sm)';
-  itemEl.style.backgroundColor = 'transparent';
+  itemEl.style.justifyContent = 'center';
+  itemEl.style.margin = '0 var(--spacing-xs)';
+  itemEl.style.borderRadius = '10px';
+  itemEl.style.backgroundColor = 'rgba(var(--color-bg-tertiary-rgb), 0.8)';
   itemEl.style.cursor = 'pointer';
-  itemEl.style.transition = 'all var(--transition-fast)';
-  itemEl.style.borderBottom = '2px solid transparent';
+  itemEl.style.transition = 'all var(--transition-normal)';
+  itemEl.style.transform = 'scale(1)';
+  itemEl.style.position = 'relative';
   
   // Add hover effect
   itemEl.addEventListener('mouseenter', () => {
-    itemEl.style.backgroundColor = 'var(--color-bg-tertiary)';
+    itemEl.style.transform = 'scale(1.15)';
+    itemEl.style.backgroundColor = 'rgba(var(--color-bg-tertiary-rgb), 0.9)';
   });
   
   itemEl.addEventListener('mouseleave', () => {
+    itemEl.style.transform = 'scale(1)';
     if (!window.isMinimized()) {
-      itemEl.style.backgroundColor = 'transparent';
+      itemEl.style.backgroundColor = 'rgba(var(--color-bg-tertiary-rgb), 0.8)';
     }
   });
   
@@ -231,44 +283,58 @@ function addApp(app, window) {
   // Add app icon
   const iconEl = document.createElement('div');
   iconEl.className = 'taskbar-item-icon';
-  iconEl.style.width = '24px';
-  iconEl.style.height = '24px';
-  iconEl.style.marginRight = 'var(--spacing-xs)';
-  iconEl.style.backgroundColor = 'var(--color-bg-tertiary)';
-  iconEl.style.borderRadius = 'var(--border-radius-sm)';
+  iconEl.style.width = '32px';
+  iconEl.style.height = '32px';
+  iconEl.style.borderRadius = '8px';
   iconEl.style.display = 'flex';
   iconEl.style.alignItems = 'center';
   iconEl.style.justifyContent = 'center';
   
-  // Add icon image if available
-  if (app.icon) {
+  // Use Heroicon if available in the map, otherwise use provided icon or fallback
+  if (iconMap.has(app.id)) {
+    // Use Heroicon from map
+    const Icon = iconMap.get(app.id);
+    // Create SVG element manually since we're not using React
+    const svgString = Icon({
+      width: 24,
+      height: 24,
+      className: 'taskbar-icon'
+    }).props.children;
+    iconEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${svgString}</svg>`;
+    iconEl.style.color = 'var(--color-text-primary)';
+  } else if (app.icon) {
+    // Use provided icon
     const imgEl = document.createElement('img');
     imgEl.src = app.icon;
     imgEl.alt = app.title;
-    imgEl.style.width = '16px';
-    imgEl.style.height = '16px';
+    imgEl.style.width = '32px';
+    imgEl.style.height = '32px';
+    imgEl.style.borderRadius = '8px';
     iconEl.appendChild(imgEl);
   } else {
-    // Use first letter of app title as fallback
-    iconEl.textContent = app.title.charAt(0).toUpperCase();
-    iconEl.style.fontSize = 'var(--font-size-sm)';
-    iconEl.style.fontWeight = 'bold';
+    // Use default Heroicon as fallback
+    iconEl.innerHTML = Heroicons.SquaresPlusIcon;
     iconEl.style.color = 'var(--color-text-primary)';
   }
   
   itemEl.appendChild(iconEl);
   
-  // Add app title
-  const titleEl = document.createElement('div');
-  titleEl.className = 'taskbar-item-title';
-  titleEl.textContent = app.title;
-  titleEl.style.fontSize = 'var(--font-size-sm)';
-  titleEl.style.fontWeight = 'var(--font-weight-medium)';
-  titleEl.style.whiteSpace = 'nowrap';
-  titleEl.style.overflow = 'hidden';
-  titleEl.style.textOverflow = 'ellipsis';
-  titleEl.style.maxWidth = '100px';
-  itemEl.appendChild(titleEl);
+  // Add tooltip for app title
+  itemEl.title = app.title;
+  
+  // Add indicator dot for running apps
+  const indicatorEl = document.createElement('div');
+  indicatorEl.className = 'taskbar-item-indicator';
+  indicatorEl.style.position = 'absolute';
+  indicatorEl.style.bottom = '-5px';
+  indicatorEl.style.left = '50%';
+  indicatorEl.style.transform = 'translateX(-50%)';
+  indicatorEl.style.width = '4px';
+  indicatorEl.style.height = '4px';
+  indicatorEl.style.borderRadius = '50%';
+  indicatorEl.style.backgroundColor = 'var(--color-accent)';
+  indicatorEl.style.opacity = '0';
+  itemEl.appendChild(indicatorEl);
   
   // Add to apps container
   appsContainer.appendChild(itemEl);
@@ -369,13 +435,14 @@ function updateActiveState(windowId, isActive) {
   // Get app data
   const appData = runningApps.get(windowId);
   
-  // Update element style
-  if (isActive) {
-    appData.element.style.backgroundColor = 'var(--color-bg-tertiary)';
-    appData.element.style.borderBottom = '2px solid var(--color-accent)';
-  } else {
-    appData.element.style.backgroundColor = 'transparent';
-    appData.element.style.borderBottom = '2px solid transparent';
+  // Update indicator dot
+  const indicatorEl = appData.element.querySelector('.taskbar-item-indicator');
+  if (indicatorEl) {
+    if (isActive) {
+      indicatorEl.style.opacity = '1';
+    } else {
+      indicatorEl.style.opacity = '0.5';
+    }
   }
 }
 
@@ -392,21 +459,24 @@ function highlightTaskbarItem(windowId) {
   // Get app data
   const appData = runningApps.get(windowId);
   
-  // Add pulsing effect
-  appData.element.style.backgroundColor = 'var(--color-bg-tertiary)';
-  appData.element.style.animation = 'taskbar-item-pulse 2s infinite';
+  // Add pulsing effect to the indicator dot
+  const indicatorEl = appData.element.querySelector('.taskbar-item-indicator');
+  if (indicatorEl) {
+    indicatorEl.style.opacity = '1';
+    indicatorEl.style.animation = 'taskbar-indicator-pulse 2s infinite';
   
-  // Add animation keyframes if not already added
-  if (!document.getElementById('taskbar-item-pulse-animation')) {
-    const styleEl = document.createElement('style');
-    styleEl.id = 'taskbar-item-pulse-animation';
-    styleEl.textContent = `
-      @keyframes taskbar-item-pulse {
-        0%, 100% { background-color: var(--color-bg-tertiary); }
-        50% { background-color: var(--color-accent-light); }
-      }
-    `;
-    document.head.appendChild(styleEl);
+    // Add animation keyframes if not already added
+    if (!document.getElementById('taskbar-indicator-pulse-animation')) {
+      const styleEl = document.createElement('style');
+      styleEl.id = 'taskbar-indicator-pulse-animation';
+      styleEl.textContent = `
+        @keyframes taskbar-indicator-pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.3; }
+        }
+      `;
+      document.head.appendChild(styleEl);
+    }
   }
 }
 
