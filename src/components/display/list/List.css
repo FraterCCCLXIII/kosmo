@@ -1,0 +1,133 @@
+/**
+ * List Component Styles
+ */
+
+/* Base List */
+.kosmo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow: auto;
+}
+
+/* List Variants */
+.kosmo-list--divided .kosmo-list-item:not(:last-child) {
+  border-bottom: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-list--card {
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Dense List */
+.kosmo-list--dense .kosmo-list-item {
+  padding: var(--spacing-1) var(--spacing-2);
+  min-height: 40px;
+}
+
+/* List Item */
+.kosmo-list-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-3);
+  min-height: 48px;
+  position: relative;
+  transition: background-color var(--duration-fast) var(--easing-ease-in-out);
+}
+
+.kosmo-list-item--clickable {
+  cursor: pointer;
+}
+
+.kosmo-list-item--clickable:hover {
+  background-color: var(--color-hover);
+}
+
+.kosmo-list-item--selected {
+  background-color: var(--color-selected);
+}
+
+.kosmo-list-item--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* List Item Content */
+.kosmo-list-item__content {
+  flex: 1;
+  min-width: 0; /* Ensures text truncation works */
+}
+
+.kosmo-list-item__primary {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-surface);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kosmo-list-item__secondary {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin: var(--spacing-0-5) 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* List Item Icons */
+.kosmo-list-item__start-icon {
+  margin-right: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-500);
+}
+
+.kosmo-list-item__end-icon {
+  margin-left: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-500);
+}
+
+/* List Item Avatar */
+.kosmo-list-item__avatar {
+  margin-right: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* List Divider */
+.kosmo-list-divider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: var(--spacing-1) 0;
+}
+
+.kosmo-list-divider--inset {
+  margin-left: 72px; /* Aligns with content after avatar/icon */
+}
+
+/* List Subheader */
+.kosmo-list-subheader {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-600);
+  background-color: var(--color-background);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kosmo-list-subheader--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}

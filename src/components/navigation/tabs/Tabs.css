@@ -1,0 +1,116 @@
+/**
+ * Tabs Component Styles
+ */
+
+.kosmo-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* Tabs positioned at bottom */
+.kosmo-tabs--bottom {
+  flex-direction: column-reverse;
+}
+
+/* Tab Navigation */
+.kosmo-tabs__nav {
+  display: flex;
+  background-color: var(--color-surface);
+}
+
+.kosmo-tabs__nav--top {
+  border-bottom: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-tabs__nav--bottom {
+  border-top: var(--border-width-1) solid var(--color-border);
+  height: 60px;
+}
+
+/* Tab Buttons */
+.kosmo-tabs__tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2) var(--spacing-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-gray-500);
+  transition: all var(--duration-fast) var(--easing-ease-in-out);
+}
+
+.kosmo-tabs__tab:hover {
+  color: var(--color-gray-700);
+}
+
+.kosmo-tabs__tab--active {
+  color: var(--color-primary);
+}
+
+/* Default variant */
+.kosmo-tabs--default .kosmo-tabs__tab--active {
+  color: var(--color-primary);
+}
+
+/* Pills variant */
+.kosmo-tabs--pills .kosmo-tabs__nav {
+  padding: var(--spacing-1);
+  gap: var(--spacing-1);
+}
+
+.kosmo-tabs--pills .kosmo-tabs__tab {
+  border-radius: var(--border-radius-full);
+}
+
+.kosmo-tabs--pills .kosmo-tabs__tab--active {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}
+
+/* Underline variant */
+.kosmo-tabs--underline .kosmo-tabs__tab {
+  position: relative;
+}
+
+.kosmo-tabs--underline .kosmo-tabs__tab--active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary);
+}
+
+.kosmo-tabs--underline.kosmo-tabs--bottom .kosmo-tabs__tab--active::after {
+  top: 0;
+  bottom: auto;
+}
+
+/* Tab Icons and Labels */
+.kosmo-tabs__tab-icon {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-1);
+}
+
+.kosmo-tabs__tab-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Tab Content */
+.kosmo-tabs__content {
+  flex: 1;
+  overflow: auto;
+  background-color: var(--color-background);
+}
+
+/* Tab Panel */
+.kosmo-tab-panel {
+  height: 100%;
+}

@@ -12,16 +12,19 @@ import Card, { CardHeader, CardContent, CardFooter, CardMedia } from './core/Car
 import TextField from './core/TextField';
 
 // Layout Components
-// These will be implemented as needed
+import AppLayout, { AppHeader, AppContent, AppFooter, AppSidebar } from './layout/app-layout/AppLayout';
 
 // Navigation Components
-// These will be implemented as needed
+import Tabs, { TabPanel } from './navigation/tabs/Tabs';
 
 // Display Components
-// These will be implemented as needed
+import List, { ListItem, ListDivider, ListSubheader } from './display/list/List';
+
+// Input Components
+import SearchField from './inputs/search-field/SearchField';
 
 // Feedback Components
-// These will be implemented as needed
+import EmptyState from './feedback/empty-state/EmptyState';
 
 // Export all components
 export {
@@ -37,16 +40,32 @@ export {
   TextField,
   
   // Layout Components
+  AppLayout,
+  AppHeader,
+  AppContent,
+  AppFooter,
+  AppSidebar,
   
   // Navigation Components
+  Tabs,
+  TabPanel,
   
   // Display Components
+  List,
+  ListItem,
+  ListDivider,
+  ListSubheader,
+  
+  // Input Components
+  SearchField,
   
   // Feedback Components
+  EmptyState,
 };
 
 // Default export for convenience
 const KosmoComponents = {
+  // Core Components
   ThemeProvider,
   Button,
   Card,
@@ -55,6 +74,29 @@ const KosmoComponents = {
   CardFooter,
   CardMedia,
   TextField,
+  
+  // Layout Components
+  AppLayout,
+  AppHeader,
+  AppContent,
+  AppFooter,
+  AppSidebar,
+  
+  // Navigation Components
+  Tabs,
+  TabPanel,
+  
+  // Display Components
+  List,
+  ListItem,
+  ListDivider,
+  ListSubheader,
+  
+  // Input Components
+  SearchField,
+  
+  // Feedback Components
+  EmptyState,
 };
 
 export default KosmoComponents;

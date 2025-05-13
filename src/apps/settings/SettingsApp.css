@@ -1,0 +1,58 @@
+/**
+ * Settings App Styles
+ */
+
+.settings-app {
+  height: 100%;
+  width: 100%;
+}
+
+/* Main layout */
+.settings-app__layout {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+/* Sidebar */
+.settings-app__sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  background-color: var(--color-surface);
+  border-right: var(--border-width-1) solid var(--color-border);
+  overflow-y: auto;
+}
+
+.settings-app__categories {
+  padding: var(--spacing-2) 0;
+}
+
+/* Content area */
+.settings-app__content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tabs */
+.settings-app__tabs {
+  width: 100%;
+}
+
+/* Panel */
+.settings-app__panel {
+  padding: var(--spacing-4);
+  overflow-y: auto;
+  height: 100%;
+}
+
+.settings-app__panel-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-4) 0;
+  color: var(--color-on-surface);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}

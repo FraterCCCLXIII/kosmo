@@ -1,0 +1,194 @@
+/**
+ * AppLayout Component Styles
+ */
+
+/* Base Layout */
+.kosmo-app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--color-background);
+}
+
+/* Layout Body (contains content and sidebar) */
+.kosmo-app-layout__body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Layout with Sidebar */
+.kosmo-app-layout--with-sidebar .kosmo-app-layout__content {
+  flex: 1;
+}
+
+/* Right Sidebar */
+.kosmo-app-layout--sidebar-right .kosmo-app-layout__body {
+  flex-direction: row-reverse;
+}
+
+/* Collapsed Sidebar */
+.kosmo-app-layout--sidebar-collapsed .kosmo-app-layout__sidebar {
+  width: 60px;
+}
+
+.kosmo-app-layout--sidebar-collapsed .kosmo-app-layout__sidebar-content {
+  overflow: hidden;
+}
+
+/* Header */
+.kosmo-app-layout__header {
+  flex-shrink: 0;
+  border-bottom: var(--border-width-1) solid var(--color-border);
+  background-color: var(--color-surface);
+  z-index: 1;
+}
+
+/* Content */
+.kosmo-app-layout__content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sidebar */
+.kosmo-app-layout__sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  background-color: var(--color-surface);
+  border-right: var(--border-width-1) solid var(--color-border);
+  position: relative;
+  transition: width var(--duration-normal) var(--easing-ease-in-out);
+  overflow: hidden;
+}
+
+.kosmo-app-layout--sidebar-right .kosmo-app-layout__sidebar {
+  border-right: none;
+  border-left: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-app-layout__sidebar-content {
+  height: 100%;
+  width: 250px;
+  overflow: auto;
+}
+
+.kosmo-app-layout__sidebar-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-variant);
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.kosmo-app-layout--sidebar-right .kosmo-app-layout__sidebar-toggle {
+  right: auto;
+  left: 10px;
+}
+
+/* Footer */
+.kosmo-app-layout__footer {
+  flex-shrink: 0;
+  border-top: var(--border-width-1) solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+/* App Header Component */
+.kosmo-app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 var(--spacing-4);
+}
+
+.kosmo-app-header__left {
+  display: flex;
+  align-items: center;
+}
+
+.kosmo-app-header__back-button {
+  margin-right: var(--spacing-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-600);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-full);
+}
+
+.kosmo-app-header__back-button:hover {
+  background-color: var(--color-hover);
+}
+
+.kosmo-app-header__icon {
+  margin-right: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kosmo-app-header__title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-on-surface);
+}
+
+.kosmo-app-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+/* App Content Component */
+.kosmo-app-content {
+  height: 100%;
+  width: 100%;
+}
+
+.kosmo-app-content--padded {
+  padding: var(--spacing-4);
+}
+
+.kosmo-app-content--scrollable {
+  overflow: auto;
+}
+
+/* App Footer Component */
+.kosmo-app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 60px;
+  padding: 0 var(--spacing-4);
+}
+
+.kosmo-app-footer__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+/* App Sidebar Component */
+.kosmo-app-sidebar {
+  height: 100%;
+  overflow: auto;
+}

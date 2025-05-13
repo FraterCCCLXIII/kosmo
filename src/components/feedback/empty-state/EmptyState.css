@@ -1,0 +1,87 @@
+/**
+ * EmptyState Component Styles
+ */
+
+.kosmo-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-6);
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+}
+
+/* Size Variants */
+.kosmo-empty-state--small {
+  padding: var(--spacing-4);
+  max-width: 300px;
+}
+
+.kosmo-empty-state--medium {
+  padding: var(--spacing-6);
+  max-width: 400px;
+}
+
+.kosmo-empty-state--large {
+  padding: var(--spacing-8);
+  max-width: 500px;
+}
+
+/* Icon */
+.kosmo-empty-state__icon {
+  font-size: 48px;
+  margin-bottom: var(--spacing-4);
+  color: var(--color-gray-400);
+}
+
+.kosmo-empty-state--small .kosmo-empty-state__icon {
+  font-size: 32px;
+  margin-bottom: var(--spacing-3);
+}
+
+.kosmo-empty-state--large .kosmo-empty-state__icon {
+  font-size: 64px;
+  margin-bottom: var(--spacing-5);
+}
+
+/* Title */
+.kosmo-empty-state__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-on-surface);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.kosmo-empty-state--small .kosmo-empty-state__title {
+  font-size: var(--font-size-lg);
+}
+
+.kosmo-empty-state--large .kosmo-empty-state__title {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-3);
+}
+
+/* Message */
+.kosmo-empty-state__message {
+  font-size: var(--font-size-md);
+  color: var(--color-gray-600);
+  margin: 0 0 var(--spacing-4) 0;
+  line-height: 1.5;
+}
+
+.kosmo-empty-state--small .kosmo-empty-state__message {
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-3);
+}
+
+.kosmo-empty-state--large .kosmo-empty-state__message {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-5);
+}
+
+/* Action */
+.kosmo-empty-state__action {
+  margin-top: var(--spacing-2);
+}
