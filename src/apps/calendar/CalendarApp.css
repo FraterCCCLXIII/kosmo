@@ -1,0 +1,133 @@
+/**
+ * Calendar App Styles
+ */
+
+.calendar-app {
+  height: 100%;
+  width: 100%;
+}
+
+/* Header */
+.calendar-app__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.calendar-app__search {
+  width: 250px;
+}
+
+/* Sidebar */
+.calendar-app__sidebar-content {
+  padding: var(--spacing-3);
+}
+
+.calendar-app__sidebar-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-2) 0;
+  color: var(--color-gray-600);
+}
+
+.calendar-app__calendars {
+  margin-bottom: var(--spacing-4);
+}
+
+.calendar-app__calendar-color {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--border-radius-full);
+}
+
+/* Upcoming Events */
+.calendar-app__upcoming {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-2);
+}
+
+.calendar-app__upcoming-event {
+  display: flex;
+  padding: var(--spacing-2);
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-surface-variant);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing-ease-in-out);
+}
+
+.calendar-app__upcoming-event:hover {
+  background-color: var(--color-hover);
+}
+
+.calendar-app__upcoming-event-indicator {
+  width: 4px;
+  border-radius: var(--border-radius-full);
+  margin-right: var(--spacing-2);
+}
+
+.calendar-app__upcoming-event-content {
+  flex: 1;
+}
+
+.calendar-app__upcoming-event-title {
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-1);
+}
+
+.calendar-app__upcoming-event-details {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin-bottom: var(--spacing-1);
+}
+
+.calendar-app__upcoming-event-location {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+}
+
+.calendar-app__no-events {
+  padding: var(--spacing-2);
+  color: var(--color-gray-500);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+/* Content */
+.calendar-app__content {
+  height: 100%;
+  width: 100%;
+  padding: var(--spacing-3);
+}
+
+.calendar-app__calendar {
+  height: 100%;
+}
+
+/* Modal */
+.calendar-app__modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.calendar-app__modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.calendar-app__event-form {
+  position: relative;
+  z-index: 1001;
+}

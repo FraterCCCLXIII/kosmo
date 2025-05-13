@@ -19,6 +19,7 @@ import Tabs, { TabPanel } from './navigation/tabs/Tabs';
 
 // Display Components
 import List, { ListItem, ListDivider, ListSubheader } from './display/list/List';
+import Calendar from './display/calendar/Calendar';
 
 // Input Components
 import SearchField from './inputs/search-field/SearchField';
@@ -55,6 +56,7 @@ export {
   ListItem,
   ListDivider,
   ListSubheader,
+  Calendar,
   
   // Input Components
   SearchField,
@@ -91,6 +93,7 @@ const KosmoComponents = {
   ListItem,
   ListDivider,
   ListSubheader,
+  Calendar,
   
   // Input Components
   SearchField,

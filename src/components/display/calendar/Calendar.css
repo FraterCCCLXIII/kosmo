@@ -1,0 +1,366 @@
+/**
+ * Calendar Component Styles
+ */
+
+.kosmo-calendar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+}
+
+/* Calendar Header */
+.kosmo-calendar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-calendar__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.kosmo-calendar__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.kosmo-calendar__control-button {
+  padding: var(--spacing-1) var(--spacing-3);
+  background-color: var(--color-surface-variant);
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing-ease-in-out);
+}
+
+.kosmo-calendar__control-button:hover {
+  background-color: var(--color-hover);
+}
+
+.kosmo-calendar__navigation {
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.kosmo-calendar__nav-button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface-variant);
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing-ease-in-out);
+}
+
+.kosmo-calendar__nav-button:hover {
+  background-color: var(--color-hover);
+}
+
+.kosmo-calendar__view-selector {
+  display: flex;
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+}
+
+.kosmo-calendar__view-button {
+  padding: var(--spacing-1) var(--spacing-3);
+  background-color: var(--color-surface-variant);
+  border: none;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing-ease-in-out);
+}
+
+.kosmo-calendar__view-button:not(:last-child) {
+  border-right: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-calendar__view-button:hover {
+  background-color: var(--color-hover);
+}
+
+.kosmo-calendar__view-button--active {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.kosmo-calendar__view-button--active:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Calendar Body */
+.kosmo-calendar__body {
+  flex: 1;
+  overflow: auto;
+}
+
+/* Month View */
+.kosmo-calendar__month-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.kosmo-calendar__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  border-bottom: var(--border-width-1) solid var(--color-border);
+  background-color: var(--color-surface-variant);
+}
+
+.kosmo-calendar__weekday {
+  padding: var(--spacing-2);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.kosmo-calendar__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  flex: 1;
+}
+
+.kosmo-calendar__day {
+  position: relative;
+  min-height: 100px;
+  padding: var(--spacing-1);
+  border-right: var(--border-width-1) solid var(--color-border);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing-ease-in-out);
+}
+
+.kosmo-calendar__day:hover {
+  background-color: var(--color-hover);
+}
+
+.kosmo-calendar__day--faded {
+  background-color: var(--color-surface-variant);
+  color: var(--color-gray-400);
+}
+
+.kosmo-calendar__day--today {
+  background-color: var(--color-primary-transparent);
+}
+
+.kosmo-calendar__day-number {
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-1);
+}
+
+.kosmo-calendar__day-events {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.kosmo-calendar__event {
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-on-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kosmo-calendar__event-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kosmo-calendar__more-events {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+  text-align: center;
+}
+
+/* Week View */
+.kosmo-calendar__week-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.kosmo-calendar__week-header {
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+  background-color: var(--color-surface-variant);
+}
+
+.kosmo-calendar__week-header-day {
+  padding: var(--spacing-2);
+  text-align: center;
+  border-left: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-calendar__week-header-day--today {
+  background-color: var(--color-primary-transparent);
+}
+
+.kosmo-calendar__week-header-name {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+
+.kosmo-calendar__week-header-number {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.kosmo-calendar__week-body {
+  display: flex;
+  height: 1440px; /* 24 hours * 60px per hour */
+  position: relative;
+}
+
+.kosmo-calendar__week-hours {
+  width: 60px;
+  border-right: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-calendar__week-hour {
+  height: 60px;
+  position: relative;
+  border-bottom: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-calendar__week-hour-label {
+  position: absolute;
+  top: -9px;
+  right: 8px;
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+}
+
+.kosmo-calendar__week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  flex: 1;
+}
+
+.kosmo-calendar__week-day-column {
+  position: relative;
+  border-right: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-calendar__week-cell {
+  height: 60px;
+  border-bottom: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-calendar__week-event {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-on-primary);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.kosmo-calendar__week-event-title {
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Day View */
+.kosmo-calendar__day-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.kosmo-calendar__day-header {
+  padding: var(--spacing-2) var(--spacing-4);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+  background-color: var(--color-surface-variant);
+}
+
+.kosmo-calendar__day-header-date {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.kosmo-calendar__day-header-date--today {
+  color: var(--color-primary);
+}
+
+.kosmo-calendar__day-body {
+  display: flex;
+  height: 1440px; /* 24 hours * 60px per hour */
+  position: relative;
+}
+
+.kosmo-calendar__day-hours {
+  width: 60px;
+  border-right: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-calendar__day-hour {
+  height: 60px;
+  position: relative;
+  border-bottom: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-calendar__day-hour-label {
+  position: absolute;
+  top: -9px;
+  right: 8px;
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+}
+
+.kosmo-calendar__day-grid {
+  position: relative;
+  flex: 1;
+}
+
+.kosmo-calendar__day-cell {
+  height: 60px;
+  border-bottom: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-calendar__day-event {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  padding: var(--spacing-2);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-on-primary);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.kosmo-calendar__day-event-title {
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-1);
+}
+
+.kosmo-calendar__day-event-location {
+  font-size: var(--font-size-xs);
+  opacity: 0.9;
+}

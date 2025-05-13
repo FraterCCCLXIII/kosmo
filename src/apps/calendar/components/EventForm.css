@@ -1,0 +1,81 @@
+/**
+ * Event Form Component Styles
+ */
+
+.kosmo-event-form {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.kosmo-event-form__form {
+  padding: var(--spacing-4);
+}
+
+.kosmo-event-form__title {
+  margin: 0 0 var(--spacing-4) 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.kosmo-event-form__field {
+  margin-bottom: var(--spacing-3);
+}
+
+.kosmo-event-form__field--half {
+  width: calc(50% - var(--spacing-2));
+}
+
+.kosmo-event-form__row {
+  display: flex;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-3);
+}
+
+.kosmo-event-form__label {
+  display: block;
+  margin-bottom: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.kosmo-event-form__date-input,
+.kosmo-event-form__time-input {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-md);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+.kosmo-event-form__color-picker {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.kosmo-event-form__color-input {
+  width: 40px;
+  height: 40px;
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+}
+
+.kosmo-event-form__color-value {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.kosmo-event-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-4);
+}
