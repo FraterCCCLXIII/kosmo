@@ -189,7 +189,8 @@ export async function loadApp(appInfo) {
       
       try {
         // Try to import the manifest
-        const manifestModule = await import(manifestPath);
+        console.log(`Loading manifest from: ${manifestPath}`);
+        const manifestModule = await import(/* @vite-ignore */ manifestPath);
         const manifest = manifestModule.default;
         
         appInfo = {
@@ -200,7 +201,7 @@ export async function loadApp(appInfo) {
           path: appPath
         };
       } catch (error) {
-        console.warn(`No manifest found for app ${appId}, using defaults`);
+        console.warn(`No manifest found for app ${appId}, using defaults`, error);
         appInfo = {
           id: appId,
           title: appId.charAt(0).toUpperCase() + appId.slice(1).replace(/-/g, ' '),
@@ -211,10 +212,15 @@ export async function loadApp(appInfo) {
       
       // Try to preload the module
       try {
-        const module = await import(appPath);
+        console.log(`Preloading module from: ${appPath}`);
+        const module = await import(/* @vite-ignore */ appPath);
+        console.log(`Module loaded for ${appId}:`, module);
         appInfo.module = module;
         if (typeof module.launch === 'function') {
+          console.log(`Found launch function in module for ${appId}`);
           appInfo.launch = module.launch;
+        } else {
+          console.warn(`No launch function found in module for ${appId}`);
         }
       } catch (error) {
         console.warn(`Could not preload app module: ${appId}`, error);
@@ -314,9 +320,16 @@ function addAppToGrid(appInfo) {
   appName.style.width = '100%';
   
   // Add click handler
-  appItem.addEventListener('click', () => {
-    launchApp(appInfo.id);
-    hideLauncher();
+  appItem.addEventListener('click', async (event) => {
+    event.preventDefault();
+    console.log(`App item clicked: ${appInfo.id}`);
+    try {
+      const result = await launchApp(appInfo.id);
+      console.log(`App launch result:`, result);
+      hideLauncher();
+    } catch (error) {
+      console.error(`Error in app launch click handler:`, error);
+    }
   });
   
   // Assemble app item
@@ -367,37 +380,47 @@ export async function launchApp(appId) {
   try {
     // Launch app
     if (typeof appInfo.launch === 'function') {
-      // Import the app module dynamically if needed
-      if (!appInfo.module && appInfo.path) {
-        try {
-          const module = await import(appInfo.path);
-          appInfo.module = module;
-          
-          // If the module has a launch function, use it
-          if (typeof module.launch === 'function') {
-            appInfo.launch = module.launch;
-          }
-        } catch (error) {
-          console.error(`Failed to import app module: ${appId}`, error);
-        }
-      }
-      
+      // Use the existing launch function
+      console.log(`Launching app ${appId} with existing launch function`);
       return await appInfo.launch();
     } else if (appInfo.module && typeof appInfo.module.launch === 'function') {
+      // Use the module's launch function
+      console.log(`Launching app ${appId} with module launch function`);
       return await appInfo.module.launch();
     } else {
-      console.error(`App ${appId} does not have a launch function`);
+      console.log(`App ${appId} does not have a launch function, trying to load it`);
       
-      // Try to load the app from the apps directory as fallback
+      // Try to load the app module dynamically
       try {
-        const module = await import(`../apps/${appId}/app.js`);
+        // First try the path if it exists
+        if (appInfo.path) {
+          console.log(`Trying to load app from path: ${appInfo.path}`);
+          const module = await import(/* @vite-ignore */ appInfo.path);
+          appInfo.module = module;
+          
+          if (typeof module.launch === 'function') {
+            console.log(`Found launch function in module, using it`);
+            appInfo.launch = module.launch;
+            return await module.launch();
+          }
+        }
+        
+        // Try to load from apps directory as fallback
+        console.log(`Trying to load app from apps directory: ${appId}`);
+        const appPath = `../apps/${appId}/app.js`;
+        console.log(`Loading from path: ${appPath}`);
+        const module = await import(/* @vite-ignore */ appPath);
+        
         if (typeof module.launch === 'function') {
+          console.log(`Found launch function in fallback module, using it`);
           appInfo.module = module;
           appInfo.launch = module.launch;
           return await module.launch();
+        } else {
+          console.error(`Module found but no launch function in: ${appId}`);
         }
       } catch (error) {
-        console.error(`Failed to load app as fallback: ${appId}`, error);
+        console.error(`Failed to load app module: ${appId}`, error);
       }
     }
   } catch (error) {
