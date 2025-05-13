@@ -1,0 +1,184 @@
+/**
+ * Kosmo OS UI Kit - Button Component Styles
+ */
+
+.kosmo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-md);
+  border: var(--border-width-1) solid transparent;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--easing-ease-in-out);
+  overflow: hidden;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Button Sizes */
+.kosmo-button--small {
+  height: 32px;
+  padding: 0 var(--spacing-3);
+  font-size: var(--font-size-sm);
+  gap: var(--spacing-1-5);
+}
+
+.kosmo-button--medium {
+  height: 40px;
+  padding: 0 var(--spacing-4);
+  font-size: var(--font-size-base);
+  gap: var(--spacing-2);
+}
+
+.kosmo-button--large {
+  height: 48px;
+  padding: 0 var(--spacing-5);
+  font-size: var(--font-size-lg);
+  gap: var(--spacing-2-5);
+}
+
+/* Button Variants */
+.kosmo-button--primary {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.kosmo-button--primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.kosmo-button--primary:active:not(:disabled) {
+  background-color: var(--color-primary-active);
+}
+
+.kosmo-button--secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-on-secondary);
+}
+
+.kosmo-button--secondary:hover:not(:disabled) {
+  background-color: var(--color-secondary-hover);
+}
+
+.kosmo-button--secondary:active:not(:disabled) {
+  background-color: var(--color-secondary-active);
+}
+
+.kosmo-button--outline {
+  background-color: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.kosmo-button--outline:hover:not(:disabled) {
+  background-color: rgba(var(--color-primary-rgb), 0.05);
+}
+
+.kosmo-button--outline:active:not(:disabled) {
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+}
+
+.kosmo-button--ghost {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+.kosmo-button--ghost:hover:not(:disabled) {
+  background-color: rgba(var(--color-primary-rgb), 0.05);
+}
+
+.kosmo-button--ghost:active:not(:disabled) {
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+}
+
+.kosmo-button--danger {
+  background-color: var(--color-error);
+  color: var(--color-on-error);
+}
+
+.kosmo-button--danger:hover:not(:disabled) {
+  background-color: #d63031; /* Darker red */
+}
+
+.kosmo-button--danger:active:not(:disabled) {
+  background-color: #b71c1c; /* Even darker red */
+}
+
+/* Button States */
+.kosmo-button--disabled,
+.kosmo-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.kosmo-button--full-width {
+  width: 100%;
+}
+
+.kosmo-button--icon-only {
+  padding: 0;
+  width: 40px; /* Default for medium */
+  justify-content: center;
+}
+
+.kosmo-button--icon-only.kosmo-button--small {
+  width: 32px;
+}
+
+.kosmo-button--icon-only.kosmo-button--large {
+  width: 48px;
+}
+
+/* Button Icons */
+.kosmo-button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kosmo-button__icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* Loading State */
+.kosmo-button--loading {
+  cursor: wait;
+}
+
+.kosmo-button__loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.kosmo-button__loader-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
+  animation: button-loader 1.4s infinite ease-in-out both;
+}
+
+.kosmo-button__loader-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.kosmo-button__loader-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes button-loader {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}

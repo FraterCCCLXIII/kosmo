@@ -1,0 +1,212 @@
+/**
+ * Kosmo OS UI Kit - Card Component Styles
+ */
+
+.kosmo-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow var(--duration-fast) var(--easing-ease-in-out),
+              transform var(--duration-fast) var(--easing-ease-in-out);
+}
+
+/* Card Variants */
+.kosmo-card--default {
+  border: var(--border-width-1) solid var(--color-border);
+}
+
+.kosmo-card--outlined {
+  border: var(--border-width-1) solid var(--color-border);
+  box-shadow: none;
+}
+
+.kosmo-card--filled {
+  background-color: var(--color-surface-variant);
+  border: none;
+}
+
+/* Card Elevations */
+.kosmo-card--elevation-0 {
+  box-shadow: none;
+}
+
+.kosmo-card--elevation-1 {
+  box-shadow: var(--shadow-1);
+}
+
+.kosmo-card--elevation-2 {
+  box-shadow: var(--shadow-2);
+}
+
+.kosmo-card--elevation-3 {
+  box-shadow: var(--shadow-3);
+}
+
+.kosmo-card--elevation-4 {
+  box-shadow: var(--shadow-4);
+}
+
+/* Card Padding */
+.kosmo-card--padding-none {
+  padding: 0;
+}
+
+.kosmo-card--padding-small {
+  padding: var(--spacing-3);
+}
+
+.kosmo-card--padding-medium {
+  padding: var(--spacing-4);
+}
+
+.kosmo-card--padding-large {
+  padding: var(--spacing-6);
+}
+
+/* Clickable Card */
+.kosmo-card--clickable {
+  cursor: pointer;
+}
+
+.kosmo-card--clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-3);
+}
+
+.kosmo-card--clickable:active {
+  transform: translateY(0);
+}
+
+/* Card Header */
+.kosmo-card__header {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-4);
+  padding-bottom: var(--spacing-2);
+}
+
+.kosmo-card--padding-none .kosmo-card__header {
+  padding: var(--spacing-4);
+}
+
+.kosmo-card--padding-small .kosmo-card__header {
+  padding: var(--spacing-3);
+  padding-bottom: var(--spacing-1-5);
+}
+
+.kosmo-card--padding-medium .kosmo-card__header {
+  padding: 0;
+  padding-bottom: var(--spacing-3);
+}
+
+.kosmo-card--padding-large .kosmo-card__header {
+  padding: 0;
+  padding-bottom: var(--spacing-4);
+}
+
+.kosmo-card__header-icon {
+  margin-right: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kosmo-card__header-content {
+  flex: 1;
+  min-width: 0; /* For text truncation */
+}
+
+.kosmo-card__header-title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-on-surface);
+  line-height: var(--line-height-tight);
+}
+
+.kosmo-card__header-subtitle {
+  margin-top: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  color: var(--color-on-surface-variant);
+  line-height: var(--line-height-snug);
+}
+
+.kosmo-card__header-action {
+  margin-left: var(--spacing-2);
+}
+
+/* Card Content */
+.kosmo-card__content {
+  flex: 1;
+  padding: var(--spacing-4);
+}
+
+.kosmo-card--padding-none .kosmo-card__content {
+  padding: var(--spacing-4);
+}
+
+.kosmo-card--padding-small .kosmo-card__content {
+  padding: var(--spacing-3);
+}
+
+.kosmo-card--padding-medium .kosmo-card__content {
+  padding: 0;
+}
+
+.kosmo-card--padding-large .kosmo-card__content {
+  padding: 0;
+}
+
+/* Card Footer */
+.kosmo-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--spacing-4);
+  padding-top: var(--spacing-2);
+  gap: var(--spacing-2);
+}
+
+.kosmo-card--padding-none .kosmo-card__footer {
+  padding: var(--spacing-4);
+}
+
+.kosmo-card--padding-small .kosmo-card__footer {
+  padding: var(--spacing-3);
+  padding-top: var(--spacing-1-5);
+}
+
+.kosmo-card--padding-medium .kosmo-card__footer {
+  padding: 0;
+  padding-top: var(--spacing-3);
+}
+
+.kosmo-card--padding-large .kosmo-card__footer {
+  padding: 0;
+  padding-top: var(--spacing-4);
+}
+
+/* Card Media */
+.kosmo-card__media {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.kosmo-card__media--top {
+  order: -1;
+}
+
+.kosmo-card__media--bottom {
+  order: 999;
+}
+
+.kosmo-card__media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

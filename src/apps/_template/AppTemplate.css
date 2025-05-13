@@ -1,0 +1,189 @@
+/**
+ * Kosmo OS UI Kit - App Template Styles
+ */
+
+.kosmo-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-background);
+  color: var(--color-on-surface);
+  position: relative;
+  overflow: hidden;
+}
+
+/* App Header */
+.kosmo-app__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 var(--spacing-4);
+  background-color: var(--color-surface);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+  z-index: 10;
+}
+
+.kosmo-app__header-left {
+  display: flex;
+  align-items: center;
+}
+
+.kosmo-app__header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--spacing-2);
+  font-size: 1.25rem;
+}
+
+.kosmo-app__header-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kosmo-app__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.kosmo-app__close-button {
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+}
+
+/* App Content */
+.kosmo-app__content {
+  flex: 1;
+  overflow: auto;
+  padding: var(--spacing-4);
+}
+
+/* App Footer */
+.kosmo-app__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+  height: 56px;
+  padding: 0 var(--spacing-4);
+  background-color: var(--color-surface);
+  border-top: var(--border-width-1) solid var(--color-border);
+  z-index: 10;
+}
+
+/* Loading State */
+.kosmo-app--loading .kosmo-app__content {
+  display: none;
+}
+
+.kosmo-app__loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+}
+
+.kosmo-app__loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(var(--color-primary-rgb), 0.2);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: app-loader-spin 1s linear infinite;
+  margin-bottom: var(--spacing-4);
+}
+
+.kosmo-app__loader-text {
+  font-size: var(--font-size-base);
+  color: var(--color-on-surface-variant);
+}
+
+@keyframes app-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Coming Soon Modal */
+.kosmo-coming-soon-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  animation: modal-fade-in 0.2s ease-out;
+}
+
+.kosmo-coming-soon-modal__card {
+  width: 90%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow: auto;
+  animation: modal-slide-in 0.3s var(--easing-bounce);
+}
+
+.kosmo-coming-soon-modal__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-6) var(--spacing-4);
+}
+
+.kosmo-coming-soon-modal__icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-4);
+  color: var(--color-primary);
+}
+
+.kosmo-coming-soon-modal__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-3) 0;
+  color: var(--color-on-surface);
+}
+
+.kosmo-coming-soon-modal__description {
+  font-size: var(--font-size-base);
+  color: var(--color-on-surface-variant);
+  margin: 0;
+  line-height: var(--line-height-relaxed);
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-slide-in {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

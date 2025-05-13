@@ -1,0 +1,315 @@
+/**
+ * Phone App Styles
+ */
+
+.phone-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--color-background);
+}
+
+.phone-app__content {
+  flex: 1;
+  overflow: auto;
+  padding: 0;
+}
+
+/* Tab Navigation */
+.phone-app__tabs {
+  display: flex;
+  height: 60px;
+  background-color: var(--color-surface);
+  border-top: var(--border-width-1) solid var(--color-border);
+}
+
+.phone-app__tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-1) 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-gray-500);
+  transition: color var(--duration-fast) var(--easing-ease-in-out);
+}
+
+.phone-app__tab:hover {
+  color: var(--color-gray-700);
+}
+
+.phone-app__tab--active {
+  color: var(--color-primary);
+}
+
+.phone-app__tab-icon {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-1);
+}
+
+.phone-app__tab-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Keypad Styles */
+.phone-keypad {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--spacing-4);
+}
+
+.phone-keypad__display {
+  margin-bottom: var(--spacing-4);
+  text-align: center;
+}
+
+.phone-keypad__number {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-surface);
+  margin: 0;
+  padding: var(--spacing-2) 0;
+  min-height: 60px;
+}
+
+.phone-keypad__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-4);
+}
+
+.phone-keypad__key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  background-color: var(--color-surface-variant);
+  border: none;
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--easing-ease-in-out);
+}
+
+.phone-keypad__key:hover {
+  background-color: var(--color-gray-200);
+}
+
+.phone-keypad__key:active {
+  background-color: var(--color-gray-300);
+}
+
+.phone-keypad__key-number {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-on-surface);
+}
+
+.phone-keypad__key-letters {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-500);
+  margin-top: var(--spacing-0-5);
+}
+
+.phone-keypad__call-button {
+  margin-top: var(--spacing-2);
+  height: 60px;
+  border-radius: 30px;
+}
+
+/* Recents Styles */
+.phone-recents {
+  height: 100%;
+  padding: var(--spacing-2);
+}
+
+.phone-recents__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.phone-recents__item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-3);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+}
+
+.phone-recents__icon {
+  margin-right: var(--spacing-3);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-surface-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl);
+}
+
+.phone-recents__details {
+  flex: 1;
+}
+
+.phone-recents__name {
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+}
+
+.phone-recents__number {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin: var(--spacing-1) 0 0 0;
+}
+
+.phone-recents__time {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+}
+
+.phone-recents__call-button {
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-2);
+  margin-left: var(--spacing-2);
+}
+
+/* Contacts Styles */
+.phone-contacts {
+  height: 100%;
+  padding: var(--spacing-2);
+}
+
+.phone-contacts__search {
+  margin-bottom: var(--spacing-3);
+}
+
+.phone-contacts__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.phone-contacts__item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-3);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+}
+
+.phone-contacts__avatar {
+  margin-right: var(--spacing-3);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-surface-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl);
+  color: var(--color-gray-600);
+}
+
+.phone-contacts__details {
+  flex: 1;
+}
+
+.phone-contacts__name {
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+}
+
+.phone-contacts__number {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin: var(--spacing-1) 0 0 0;
+}
+
+.phone-contacts__call-button {
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-2);
+}
+
+/* Voicemail Styles */
+.phone-voicemail {
+  height: 100%;
+  padding: var(--spacing-2);
+}
+
+.phone-voicemail__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.phone-voicemail__item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-3);
+  border-bottom: var(--border-width-1) solid var(--color-border);
+}
+
+.phone-voicemail__icon {
+  margin-right: var(--spacing-3);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-surface-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl);
+}
+
+.phone-voicemail__details {
+  flex: 1;
+}
+
+.phone-voicemail__name {
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.phone-voicemail__new-badge {
+  font-size: var(--font-size-xs);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: var(--spacing-2);
+}
+
+.phone-voicemail__time {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin: var(--spacing-1) 0 0 0;
+}
+
+.phone-voicemail__duration {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+}
+
+.phone-voicemail__play-button {
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-2);
+  margin-left: var(--spacing-2);
+}

@@ -1,0 +1,172 @@
+/**
+ * Kosmo OS UI Kit - TextField Component Styles
+ */
+
+.kosmo-textfield {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-base);
+}
+
+/* Full width variant */
+.kosmo-textfield--full-width {
+  width: 100%;
+}
+
+/* Label styles */
+.kosmo-textfield__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-on-surface);
+  margin-bottom: var(--spacing-1-5);
+  display: inline-flex;
+  align-items: center;
+}
+
+.kosmo-textfield__required {
+  color: var(--color-error);
+  margin-left: var(--spacing-1);
+}
+
+/* Input container */
+.kosmo-textfield__input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Base input styles */
+.kosmo-textfield__input {
+  width: 100%;
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  color: var(--color-on-surface);
+  background-color: transparent;
+  border: var(--border-width-1) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  transition: all var(--duration-fast) var(--easing-ease-in-out);
+  outline: none;
+}
+
+.kosmo-textfield__input::placeholder {
+  color: var(--color-gray-400);
+  opacity: 1;
+}
+
+.kosmo-textfield__input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
+}
+
+/* Sizes */
+.kosmo-textfield--small .kosmo-textfield__input {
+  height: 32px;
+  padding: 0 var(--spacing-2-5);
+  font-size: var(--font-size-sm);
+}
+
+.kosmo-textfield--medium .kosmo-textfield__input {
+  height: 40px;
+  padding: 0 var(--spacing-3);
+}
+
+.kosmo-textfield--large .kosmo-textfield__input {
+  height: 48px;
+  padding: 0 var(--spacing-4);
+  font-size: var(--font-size-lg);
+}
+
+/* Multiline */
+.kosmo-textfield--multiline .kosmo-textfield__input {
+  height: auto;
+  min-height: 80px;
+  padding: var(--spacing-2-5);
+  resize: vertical;
+}
+
+/* Variants */
+.kosmo-textfield--outlined .kosmo-textfield__input {
+  background-color: transparent;
+}
+
+.kosmo-textfield--filled .kosmo-textfield__input {
+  background-color: var(--color-surface-variant);
+  border-color: transparent;
+}
+
+.kosmo-textfield--filled .kosmo-textfield__input:focus {
+  background-color: var(--color-surface);
+}
+
+.kosmo-textfield--underlined .kosmo-textfield__input {
+  border: none;
+  border-radius: 0;
+  border-bottom: var(--border-width-1) solid var(--color-border);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.kosmo-textfield--underlined .kosmo-textfield__input:focus {
+  box-shadow: none;
+  border-bottom-color: var(--color-primary);
+}
+
+/* States */
+.kosmo-textfield--disabled .kosmo-textfield__label,
+.kosmo-textfield--disabled .kosmo-textfield__input {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.kosmo-textfield--readonly .kosmo-textfield__input {
+  background-color: var(--color-gray-50);
+  cursor: default;
+}
+
+.kosmo-textfield--error .kosmo-textfield__input {
+  border-color: var(--color-error);
+}
+
+.kosmo-textfield--error .kosmo-textfield__input:focus {
+  box-shadow: 0 0 0 2px rgba(var(--color-error-rgb), 0.2);
+}
+
+/* Prefix and Suffix */
+.kosmo-textfield__prefix,
+.kosmo-textfield__suffix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-500);
+}
+
+.kosmo-textfield__prefix {
+  margin-right: var(--spacing-2);
+}
+
+.kosmo-textfield__suffix {
+  margin-left: var(--spacing-2);
+}
+
+.kosmo-textfield--small .kosmo-textfield__prefix,
+.kosmo-textfield--small .kosmo-textfield__suffix {
+  font-size: var(--font-size-sm);
+}
+
+.kosmo-textfield--large .kosmo-textfield__prefix,
+.kosmo-textfield--large .kosmo-textfield__suffix {
+  font-size: var(--font-size-lg);
+}
+
+/* Helper text */
+.kosmo-textfield__helper-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-500);
+  margin-top: var(--spacing-1-5);
+  min-height: 1.2em;
+}
+
+.kosmo-textfield__helper-text--error {
+  color: var(--color-error);
+}
