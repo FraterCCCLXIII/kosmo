@@ -140,13 +140,7 @@ export async function init({ container, fs }) {
     // Add new folder button
     const newFolderBtn = document.createElement('button');
     newFolderBtn.className = 'file-browser-new-folder-btn';
-    // Create SVG from React icon
-    const newFolderBtnSvg = PlusIcon({
-      width: 24,
-      height: 24,
-      className: 'plus-icon'
-    }).props.children;
-    newFolderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${newFolderBtnSvg}</svg>`;
+    newFolderBtn.innerHTML = ICONS.plus;
     newFolderBtn.title = 'New folder';
     newFolderBtn.style.display = 'flex';
     newFolderBtn.style.alignItems = 'center';
@@ -165,13 +159,7 @@ export async function init({ container, fs }) {
     // Add delete button
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'file-browser-delete-btn';
-    // Create SVG from React icon
-    const deleteBtnSvg = TrashIcon({
-      width: 24,
-      height: 24,
-      className: 'trash-icon'
-    }).props.children;
-    deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${deleteBtnSvg}</svg>`;
+    deleteBtn.innerHTML = ICONS.trash;
     deleteBtn.title = 'Delete selected';
     deleteBtn.style.display = 'flex';
     deleteBtn.style.alignItems = 'center';
@@ -357,8 +345,80 @@ export async function init({ container, fs }) {
    */
   async function openFile(file) {
     console.log('Opening file:', file.path);
-    // This would be implemented based on file type
-    // For now, just log the file path
+    
+    try {
+      // Read file content
+      const content = await fs.readFile(file.path);
+      
+      // Determine file type based on extension
+      const extension = file.name.split('.').pop().toLowerCase();
+      
+      // Launch appropriate app based on file type
+      const windowManager = await getWindowManager();
+      
+      switch (extension) {
+        case 'txt':
+        case 'md':
+        case 'js':
+        case 'html':
+        case 'css':
+        case 'json':
+          // Open in text editor
+          const { launch: launchTextEditor } = await import('../text-editor/app.js');
+          const textEditorWindow = await launchTextEditor();
+          
+          // Wait for window to initialize
+          setTimeout(async () => {
+            const textEditor = textEditorWindow.content.querySelector('.text-editor-textarea');
+            if (textEditor) {
+              textEditor.value = content;
+              // Trigger input event to update character count
+              const event = new Event('input', { bubbles: true });
+              textEditor.dispatchEvent(event);
+              
+              // Update file info in status bar
+              const fileInfoEl = textEditorWindow.content.querySelector('.status-file-info');
+              if (fileInfoEl) fileInfoEl.textContent = file.name;
+            }
+          }, 100);
+          break;
+          
+        case 'jpg':
+        case 'jpeg':
+        case 'png':
+        case 'gif':
+        case 'svg':
+          // Open in image viewer (photos app)
+          const { launch: launchPhotos } = await import('../photos/app.js');
+          const photosWindow = await launchPhotos();
+          
+          // TODO: Implement image viewing in photos app
+          break;
+          
+        default:
+          // Open in text editor as fallback
+          const { launch: launchDefaultEditor } = await import('../text-editor/app.js');
+          const defaultEditorWindow = await launchDefaultEditor();
+          
+          // Wait for window to initialize
+          setTimeout(async () => {
+            const textEditor = defaultEditorWindow.content.querySelector('.text-editor-textarea');
+            if (textEditor) {
+              textEditor.value = content;
+              // Trigger input event to update character count
+              const event = new Event('input', { bubbles: true });
+              textEditor.dispatchEvent(event);
+              
+              // Update file info in status bar
+              const fileInfoEl = defaultEditorWindow.content.querySelector('.status-file-info');
+              if (fileInfoEl) fileInfoEl.textContent = file.name;
+            }
+          }, 100);
+      }
+    } catch (error) {
+      console.error('Error opening file:', error);
+      alert(`Error opening file: ${error.message}`);
+    }
   }
   
   /**
