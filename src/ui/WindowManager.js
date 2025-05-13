@@ -224,16 +224,16 @@ function createWindow(options = {}) {
   
   // Add resize functionality if window is resizable
   if (windowOptions.resizable) {
-    // Create resize handles for all sides and corners
+    // Create resize handles for all sides and corners with increased size for better usability
     const resizeHandles = {
-      n: { cursor: 'ns-resize', top: '-5px', left: '0', right: '0', height: '10px', width: 'auto' },
-      e: { cursor: 'ew-resize', top: '0', right: '-5px', bottom: '0', width: '10px', height: 'auto' },
-      s: { cursor: 'ns-resize', bottom: '-5px', left: '0', right: '0', height: '10px', width: 'auto' },
-      w: { cursor: 'ew-resize', top: '0', left: '-5px', bottom: '0', width: '10px', height: 'auto' },
-      ne: { cursor: 'nesw-resize', top: '-5px', right: '-5px', width: '10px', height: '10px' },
-      se: { cursor: 'nwse-resize', bottom: '-5px', right: '-5px', width: '10px', height: '10px' },
-      sw: { cursor: 'nesw-resize', bottom: '-5px', left: '-5px', width: '10px', height: '10px' },
-      nw: { cursor: 'nwse-resize', top: '-5px', left: '-5px', width: '10px', height: '10px' }
+      n: { cursor: 'ns-resize', top: '-8px', left: '0', right: '0', height: '16px', width: 'auto' },
+      e: { cursor: 'ew-resize', top: '0', right: '-8px', bottom: '0', width: '16px', height: 'auto' },
+      s: { cursor: 'ns-resize', bottom: '-8px', left: '0', right: '0', height: '16px', width: 'auto' },
+      w: { cursor: 'ew-resize', top: '0', left: '-8px', bottom: '0', width: '16px', height: 'auto' },
+      ne: { cursor: 'nesw-resize', top: '-8px', right: '-8px', width: '16px', height: '16px' },
+      se: { cursor: 'nwse-resize', bottom: '-8px', right: '-8px', width: '16px', height: '16px' },
+      sw: { cursor: 'nesw-resize', bottom: '-8px', left: '-8px', width: '16px', height: '16px' },
+      nw: { cursor: 'nwse-resize', top: '-8px', left: '-8px', width: '16px', height: '16px' }
     };
     
     // Create and add all resize handles
@@ -247,6 +247,9 @@ function createWindow(options = {}) {
       Object.entries(styles).forEach(([prop, value]) => {
         handleEl.style[prop] = value;
       });
+      
+      // Make the handle transparent but keep the cursor
+      handleEl.style.backgroundColor = 'transparent';
       
       windowEl.appendChild(handleEl);
       
