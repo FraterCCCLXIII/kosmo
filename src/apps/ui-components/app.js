@@ -4,7 +4,7 @@
  * Showcases all UI components from the Kosmo OS UI Kit in a grid of cards
  */
 
-import { createWindow } from '../../ui/WindowManager.js';
+import { getWindowManager } from '../../ui/WindowManager.js';
 import { createButton } from '../../ui/UIComponents/inputs/Button.js';
 
 // Component definitions with examples
@@ -131,8 +131,11 @@ function initUIComponentsApp(container) {
 export async function launch() {
   console.log('Launching UI Components app...');
   
+  // Get window manager
+  const windowManager = await getWindowManager();
+  
   // Create window
-  const window = await createWindow({
+  const window = windowManager.createWindow({
     title: 'UI Components',
     width: 800,
     height: 600,
@@ -145,10 +148,10 @@ export async function launch() {
   });
   
   // Initialize UI Components app in window content
-  console.log('Window content element:', window.getContentElement());
+  console.log('Window content element:', window.content);
   try {
     // Make sure the content element has proper styling
-    const contentEl = window.getContentElement();
+    const contentEl = window.content;
     contentEl.style.display = 'flex';
     contentEl.style.flexDirection = 'column';
     contentEl.style.width = '100%';
@@ -159,7 +162,7 @@ export async function launch() {
     console.log('UI Components app initialized successfully');
   } catch (error) {
     console.error('Error initializing UI Components app:', error);
-    window.getContentElement().innerHTML = `
+    window.content.innerHTML = `
       <div style="padding: 20px; color: red;">
         <h3>Error initializing UI Components app</h3>
         <p>${error.message}</p>

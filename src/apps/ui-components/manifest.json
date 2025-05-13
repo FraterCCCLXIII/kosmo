@@ -1,9 +1,18 @@
 {
-  "name": "UI Components",
+  "id": "ui-components",
+  "title": "UI Components",
   "description": "Showcase of all UI components in the Kosmo OS UI Kit",
   "version": "1.0.0",
   "icon": "data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M2.25 4.5A2.25 2.25 0 0 1 4.5 2.25h15a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25v-15Zm3 3v3.75h3.75v-3.75H5.25Zm0 5.25v3.75h3.75v-3.75H5.25Zm5.25-5.25v3.75h3.75v-3.75h-3.75Zm0 5.25v3.75h3.75v-3.75h-3.75Zm5.25-5.25v3.75H19.5v-3.75h-3.75Zm0 5.25v3.75H19.5v-3.75h-3.75Z' clip-rule='evenodd' /%3E%3C/svg%3E",
   "author": "Kosmo OS Team",
   "category": "Development",
-  "permissions": []
+  "permissions": [],
+  "main": "app.js",
+  "window": {
+    "width": 900,
+    "height": 700,
+    "minWidth": 400,
+    "minHeight": 300,
+    "resizable": true
+  }
 }
