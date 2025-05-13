@@ -179,6 +179,52 @@ function createLauncherElement() {
 export async function loadApp(appInfo) {
   console.log(`Loading app: ${appInfo.id}`);
   
+  // If appInfo is a string, assume it's an app ID and try to load from apps directory
+  if (typeof appInfo === 'string') {
+    const appId = appInfo;
+    try {
+      // Try to load manifest
+      const manifestPath = `../apps/${appId}/manifest.json`;
+      const appPath = `../apps/${appId}/app.js`;
+      
+      try {
+        // Try to import the manifest
+        const manifestModule = await import(manifestPath);
+        const manifest = manifestModule.default;
+        
+        appInfo = {
+          id: appId,
+          title: manifest.title || appId,
+          description: manifest.description || '',
+          icon: manifest.icon || null,
+          path: appPath
+        };
+      } catch (error) {
+        console.warn(`No manifest found for app ${appId}, using defaults`);
+        appInfo = {
+          id: appId,
+          title: appId.charAt(0).toUpperCase() + appId.slice(1).replace(/-/g, ' '),
+          description: '',
+          path: appPath
+        };
+      }
+      
+      // Try to preload the module
+      try {
+        const module = await import(appPath);
+        appInfo.module = module;
+        if (typeof module.launch === 'function') {
+          appInfo.launch = module.launch;
+        }
+      } catch (error) {
+        console.warn(`Could not preload app module: ${appId}`, error);
+      }
+    } catch (error) {
+      console.error(`Failed to load app: ${appId}`, error);
+      return null;
+    }
+  }
+  
   // Register app
   appRegistry.set(appInfo.id, appInfo);
   
@@ -231,7 +277,21 @@ function addAppToGrid(appInfo) {
   
   // Use heroicons SVG if available, otherwise use default
   const iconSvg = heroicons[appInfo.id] || heroicons.browser;
-  appIcon.innerHTML = iconSvg;
+  
+  // Create SVG element properly
+  const svgContainer = document.createElement('div');
+  svgContainer.innerHTML = iconSvg;
+  const svgElement = svgContainer.firstChild;
+  
+  // Set SVG size and styles
+  if (svgElement) {
+    svgElement.style.width = '100%';
+    svgElement.style.height = '100%';
+    appIcon.appendChild(svgElement);
+  } else {
+    // Fallback if SVG parsing fails
+    appIcon.innerHTML = iconSvg;
+  }
   
   // Create app name
   const appName = document.createElement('div');
@@ -296,9 +356,44 @@ export async function launchApp(appId) {
     return null;
   }
   
-  // Launch app
-  if (typeof appInfo.launch === 'function') {
-    return await appInfo.launch();
+  try {
+    // Launch app
+    if (typeof appInfo.launch === 'function') {
+      // Import the app module dynamically if needed
+      if (!appInfo.module && appInfo.path) {
+        try {
+          const module = await import(appInfo.path);
+          appInfo.module = module;
+          
+          // If the module has a launch function, use it
+          if (typeof module.launch === 'function') {
+            appInfo.launch = module.launch;
+          }
+        } catch (error) {
+          console.error(`Failed to import app module: ${appId}`, error);
+        }
+      }
+      
+      return await appInfo.launch();
+    } else if (appInfo.module && typeof appInfo.module.launch === 'function') {
+      return await appInfo.module.launch();
+    } else {
+      console.error(`App ${appId} does not have a launch function`);
+      
+      // Try to load the app from the apps directory as fallback
+      try {
+        const module = await import(`../apps/${appId}/app.js`);
+        if (typeof module.launch === 'function') {
+          appInfo.module = module;
+          appInfo.launch = module.launch;
+          return await module.launch();
+        }
+      } catch (error) {
+        console.error(`Failed to load app as fallback: ${appId}`, error);
+      }
+    }
+  } catch (error) {
+    console.error(`Error launching app ${appId}:`, error);
   }
   
   return null;
