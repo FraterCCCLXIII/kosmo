@@ -30,8 +30,35 @@ let isVisible = false;
 let launcherElement = null;
 
 /**
+ * Discover all apps in the apps directory
+ * @returns {Promise<string[]>} Array of app IDs
+ */
+async function discoverApps() {
+  console.log('Discovering apps in apps directory...');
+  
+  try {
+    // Get all app directories from the apps directory
+    // This uses dynamic imports to get the context of all app directories
+    const appContext = import.meta.glob('../apps/*/manifest.json', { eager: true });
+    
+    // Extract app IDs from the context keys
+    const appIds = Object.keys(appContext).map(key => {
+      // Extract app ID from path (e.g., '../apps/calculator/manifest.json' -> 'calculator')
+      const match = key.match(/\.\.\/apps\/([^/]+)\/manifest\.json/);
+      return match ? match[1] : null;
+    }).filter(Boolean);
+    
+    console.log(`Discovered ${appIds.length} apps:`, appIds);
+    return appIds;
+  } catch (error) {
+    console.error('Error discovering apps:', error);
+    return [];
+  }
+}
+
+/**
  * Initialize the app launcher
- * @param {Array} initialApps - Initial apps to load
+ * @param {Array} initialApps - Initial apps to load from config (not used anymore)
  * @returns {Object} App launcher API
  */
 export async function initAppLauncher(initialApps = []) {
@@ -40,9 +67,20 @@ export async function initAppLauncher(initialApps = []) {
   // Create launcher element
   createLauncherElement();
   
-  // Load initial apps
-  if (initialApps && initialApps.length > 0) {
-    await Promise.all(initialApps.map(loadApp));
+  // Discover all apps in the apps directory
+  const discoveredApps = await discoverApps();
+  console.log('Discovered apps:', discoveredApps);
+  
+  // Clear any existing apps from the registry and UI
+  appRegistry.clear();
+  const appGrid = document.getElementById('app-launcher-grid');
+  if (appGrid) {
+    appGrid.innerHTML = '';
+  }
+  
+  // Load all discovered apps
+  if (discoveredApps.length > 0) {
+    await Promise.all(discoveredApps.map(loadApp));
   }
   
   // Return public API
