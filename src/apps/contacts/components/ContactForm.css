@@ -1,0 +1,75 @@
+/**
+ * Contact Form Component Styles
+ */
+
+.kosmo-contact-form {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.kosmo-contact-form__form {
+  padding: var(--spacing-4);
+}
+
+.kosmo-contact-form__title {
+  margin: 0 0 var(--spacing-4) 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.kosmo-contact-form__field {
+  margin-bottom: var(--spacing-3);
+}
+
+.kosmo-contact-form__field--half {
+  width: calc(50% - var(--spacing-2));
+}
+
+.kosmo-contact-form__row {
+  display: flex;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-3);
+}
+
+.kosmo-contact-form__label {
+  display: block;
+  margin-bottom: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.kosmo-contact-form__avatar-preview {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-2);
+}
+
+.kosmo-contact-form__avatar-image,
+.kosmo-contact-form__avatar-initials {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.kosmo-contact-form__avatar-image {
+  object-fit: cover;
+}
+
+.kosmo-contact-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-4);
+}

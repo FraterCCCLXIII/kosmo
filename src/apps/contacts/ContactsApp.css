@@ -1,0 +1,113 @@
+/**
+ * Contacts App Styles
+ */
+
+.contacts-app {
+  height: 100%;
+  width: 100%;
+}
+
+/* Header */
+.contacts-app__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.contacts-app__search {
+  width: 250px;
+}
+
+/* Sidebar */
+.contacts-app__sidebar-content {
+  padding: var(--spacing-3);
+}
+
+.contacts-app__sidebar-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-2) 0;
+  color: var(--color-gray-600);
+}
+
+.contacts-app__filters {
+  margin-bottom: var(--spacing-4);
+}
+
+/* Stats */
+.contacts-app__stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing-3);
+}
+
+.contacts-app__stat {
+  text-align: center;
+  padding: var(--spacing-2);
+}
+
+.contacts-app__stat-value {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+}
+
+.contacts-app__stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+/* Content */
+.contacts-app__content {
+  height: 100%;
+  width: 100%;
+  padding: var(--spacing-3);
+}
+
+.contacts-app__list {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.contacts-app__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-semibold);
+}
+
+.contacts-app__detail {
+  height: 100%;
+}
+
+/* Modal */
+.contacts-app__modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.contacts-app__modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.contacts-app__contact-form {
+  position: relative;
+  z-index: 1001;
+}
