@@ -3,25 +3,24 @@
  * Grid or start menu of available apps
  */
 
-// Import Heroicons
-import { 
-  CalculatorIcon, 
-  DocumentTextIcon, 
-  FolderIcon, 
-  CommandLineIcon, 
-  Cog6ToothIcon, 
-  GlobeAltIcon, 
-  ListBulletIcon,
-  SparklesIcon,
-  ClipboardDocumentCheckIcon,
-  CalendarIcon,
-  EnvelopeIcon,
-  PhotoIcon,
-  MusicalNoteIcon,
-  ChatBubbleLeftRightIcon,
-  XMarkIcon,
-  MagnifyingGlassIcon
-} from '@heroicons/react/24/solid';
+// Define Heroicons SVG paths
+const heroicons = {
+  calculator: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.32 1.827a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V19.5a3 3 0 0 1-3 3H6.75a3 3 0 0 1-3-3V4.757c0-1.47 1.073-2.756 2.57-2.93ZM7.5 11.25a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H8.25a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H8.25Zm-.75 3a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H8.25a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V18a.75.75 0 0 0-.75-.75H8.25Zm1.748-6a.75.75 0 0 1 .75-.75h.007a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.007a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.335.75.75.75h.007a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75h-.007Zm-.75 3a.75.75 0 0 1 .75-.75h.007a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.007a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.335.75.75.75h.007a.75.75 0 0 0 .75-.75V18a.75.75 0 0 0-.75-.75h-.007Zm1.754-6a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75h-.008Zm-.75 3a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V18a.75.75 0 0 0-.75-.75h-.008Zm1.748-6a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm.75 1.5a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75h-.008Zm-8.25-6A.75.75 0 0 1 8.25 6h7.5a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-7.5a.75.75 0 0 1-.75-.75v-.75Z" clip-rule="evenodd" /></svg>',
+  'text-editor': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 7.5 15Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H8.25Z" clip-rule="evenodd" /><path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" /></svg>',
+  'file-browser': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 21a3 3 0 0 0 3-3v-4.5a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3V18a3 3 0 0 0 3 3h15ZM1.5 10.146V6a3 3 0 0 1 3-3h5.379a2.25 2.25 0 0 1 1.59.659l2.122 2.121c.14.141.331.22.53.22H19.5a3 3 0 0 1 3 3v1.146A4.483 4.483 0 0 0 19.5 9h-15a4.483 4.483 0 0 0-3 1.146Z" /></svg>',
+  terminal: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 6a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V6Zm3.97.97a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06l-2.25 2.25a.75.75 0 0 1-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 0 1 0-1.06Zm4.28 4.28a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clip-rule="evenodd" /></svg>',
+  settings: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 0 0-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 0 0-2.282.819l-.922 1.597a1.875 1.875 0 0 0 .432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 0 0 0 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 0 0-.432 2.385l.922 1.597a1.875 1.875 0 0 0 2.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 0 0 2.28-.819l.923-1.597a1.875 1.875 0 0 0-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 0 0 0-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 0 0-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 0 0-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 0 0-1.85-1.567h-1.843ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z" clip-rule="evenodd" /></svg>',
+  browser: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.721 12.752a9.711 9.711 0 0 0-.945-5.003 1.743 1.743 0 0 0-1.339-1.035 10.054 10.054 0 0 0-1.93-.12 10.31 10.31 0 0 0-1.975.242c-.668.149-1.136.33-1.363.543a1.05 1.05 0 0 0-.234.366 1.08 1.08 0 0 0-.234-.366c-.227-.212-.695-.394-1.363-.543a10.31 10.31 0 0 0-1.975-.242c-.68.008-1.323.05-1.93.12-.6.082-1.29.337-1.339 1.035a9.711 9.711 0 0 0-.945 5.003c.094 1.12.408 2.025.963 2.68.557.66 1.273.998 2.033 1.05.715.048 1.406.081 2.128.081.716 0 1.58-.01 2.592-.031a.634.634 0 0 0 .03 0c1.013.02 1.876.031 2.592.031.722 0 1.413-.033 2.128-.081.76-.053 1.476-.39 2.033-1.05.555-.654.87-1.56.963-2.68Zm-4.365 7.25a.75.75 0 0 0-1.5 0v1.5a.75.75 0 0 0 1.5 0v-1.5Zm3.49-1.72a.75.75 0 1 0-1.06 1.06l1.05 1.06a.75.75 0 0 0 1.06-1.06l-1.05-1.06Zm-10.074 1.06a.75.75 0 0 0-1.06-1.06l-1.05 1.05a.75.75 0 0 0 1.06 1.06l1.05-1.05Z" /></svg>',
+  'todo-list': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" /></svg>',
+  calendar: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" /><path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" /></svg>',
+  mail: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" /><path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" /></svg>',
+  photos: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" /></svg>',
+  music: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M19.952 1.651a.75.75 0 0 1 .298.599V16.303a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.403-4.909l2.311-.66a1.5 1.5 0 0 0 1.088-1.442V6.994l-9 2.572v9.737a3 3 0 0 1-2.176 2.884l-1.32.377a2.553 2.553 0 1 1-1.402-4.909l2.31-.66a1.5 1.5 0 0 0 1.088-1.442V5.25a.75.75 0 0 1 .544-.721l10.5-3a.75.75 0 0 1 .658.122Z" clip-rule="evenodd" /></svg>',
+  chat: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.913 2.658c2.075-.27 4.19-.408 6.337-.408 2.147 0 4.262.139 6.337.408 1.922.25 3.291 1.861 3.405 3.727a4.403 4.403 0 0 0-1.032-.211 50.89 50.89 0 0 0-8.42 0c-2.358.196-4.04 2.19-4.04 4.434v4.286a4.47 4.47 0 0 0 2.433 3.984L7.28 21.53A.75.75 0 0 1 6 21v-4.03a48.527 48.527 0 0 1-1.087-.128C2.905 16.58 1.5 14.833 1.5 12.862V6.638c0-1.97 1.405-3.718 3.413-3.979Z" /><path d="M15.75 7.5c-1.376 0-2.739.057-4.086.169C10.124 7.797 9 9.103 9 10.609v4.285c0 1.507 1.128 2.814 2.67 2.94 1.243.102 2.5.157 3.768.165l2.782 2.781a.75.75 0 0 0 1.28-.53v-2.39l.33-.026c1.542-.125 2.67-1.433 2.67-2.94v-4.286c0-1.505-1.125-2.811-2.664-2.94A49.392 49.392 0 0 0 15.75 7.5Z" /></svg>',
+  ai: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z" clip-rule="evenodd" /></svg>',
+  close: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" /></svg>',
+  search: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" /></svg>'
+};
 
 // App registry
 const appRegistry = new Map();
@@ -30,9 +29,6 @@ const appRegistry = new Map();
 let isVisible = false;
 let launcherElement = null;
 
-// Icon map for apps
-const iconMap = new Map();
-
 /**
  * Initialize the app launcher
  * @param {Array} initialApps - Initial apps to load
@@ -40,9 +36,6 @@ const iconMap = new Map();
  */
 export async function initAppLauncher(initialApps = []) {
   console.log('Initializing app launcher...');
-  
-  // Initialize icon map
-  initIconMap();
   
   // Create launcher element
   createLauncherElement();
@@ -65,26 +58,6 @@ export async function initAppLauncher(initialApps = []) {
 }
 
 /**
- * Initialize the icon map with Heroicons for different app types
- */
-function initIconMap() {
-  // Map app IDs to Heroicons
-  iconMap.set('calculator', CalculatorIcon);
-  iconMap.set('text-editor', DocumentTextIcon);
-  iconMap.set('browser', GlobeAltIcon);
-  iconMap.set('todo-list', ClipboardDocumentCheckIcon);
-  iconMap.set('file-browser', FolderIcon);
-  iconMap.set('settings', Cog6ToothIcon);
-  iconMap.set('terminal', CommandLineIcon);
-  iconMap.set('calendar', CalendarIcon);
-  iconMap.set('mail', EnvelopeIcon);
-  iconMap.set('photos', PhotoIcon);
-  iconMap.set('music', MusicalNoteIcon);
-  iconMap.set('chat', ChatBubbleLeftRightIcon);
-  iconMap.set('ai', SparklesIcon);
-}
-
-/**
  * Create app launcher element
  */
 function createLauncherElement() {
@@ -101,513 +74,274 @@ function createLauncherElement() {
   launcherElement.style.left = '0';
   launcherElement.style.width = '100%';
   launcherElement.style.height = '100%';
-  launcherElement.style.backgroundColor = 'var(--color-bg-primary)';
+  launcherElement.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+  launcherElement.style.backdropFilter = 'blur(10px)';
   launcherElement.style.display = 'none';
   launcherElement.style.flexDirection = 'column';
-  launcherElement.style.padding = 'var(--spacing-lg)';
-  launcherElement.style.zIndex = 'var(--z-index-modal)';
+  launcherElement.style.alignItems = 'center';
+  launcherElement.style.justifyContent = 'flex-start';
+  launcherElement.style.padding = '60px 20px 20px 20px';
+  launcherElement.style.zIndex = '1000';
+  launcherElement.style.overflow = 'auto';
   
-  // Create launcher header
-  const headerEl = document.createElement('div');
-  headerEl.className = 'app-launcher-header';
-  headerEl.style.display = 'flex';
-  headerEl.style.justifyContent = 'space-between';
-  headerEl.style.alignItems = 'center';
-  headerEl.style.marginBottom = 'var(--spacing-lg)';
+  // Create search bar
+  const searchContainer = document.createElement('div');
+  searchContainer.className = 'app-launcher-search';
+  searchContainer.style.position = 'relative';
+  searchContainer.style.width = '100%';
+  searchContainer.style.maxWidth = '600px';
+  searchContainer.style.marginBottom = '30px';
+  
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.placeholder = 'Search apps...';
+  searchInput.className = 'app-launcher-search-input';
+  searchInput.style.width = '100%';
+  searchInput.style.padding = '12px 20px 12px 45px';
+  searchInput.style.fontSize = '18px';
+  searchInput.style.borderRadius = '10px';
+  searchInput.style.border = 'none';
+  searchInput.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+  searchInput.style.color = 'white';
+  searchInput.style.outline = 'none';
+  
+  // Add search icon
+  const searchIcon = document.createElement('div');
+  searchIcon.className = 'app-launcher-search-icon';
+  searchIcon.style.position = 'absolute';
+  searchIcon.style.left = '15px';
+  searchIcon.style.top = '50%';
+  searchIcon.style.transform = 'translateY(-50%)';
+  searchIcon.style.width = '20px';
+  searchIcon.style.height = '20px';
+  searchIcon.style.color = 'rgba(255, 255, 255, 0.7)';
+  searchIcon.innerHTML = heroicons.search;
   
   // Add close button
   const closeButton = document.createElement('button');
   closeButton.className = 'app-launcher-close';
-  closeButton.setAttribute('aria-label', 'Close app launcher');
-  closeButton.style.background = 'none';
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '20px';
+  closeButton.style.right = '20px';
+  closeButton.style.width = '30px';
+  closeButton.style.height = '30px';
   closeButton.style.border = 'none';
+  closeButton.style.background = 'none';
+  closeButton.style.color = 'white';
   closeButton.style.cursor = 'pointer';
-  closeButton.style.padding = 'var(--spacing-sm)';
-  closeButton.style.marginLeft = 'var(--spacing-md)';
-  closeButton.style.borderRadius = 'var(--border-radius-full)';
   closeButton.style.display = 'flex';
   closeButton.style.alignItems = 'center';
   closeButton.style.justifyContent = 'center';
-  closeButton.style.color = 'var(--color-text-primary)';
-  
-  // Add close icon (X) using Heroicons
-  closeButton.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-      <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
-    </svg>
-  `;
-  
-  // Add hover effect
-  closeButton.addEventListener('mouseenter', () => {
-    closeButton.style.backgroundColor = 'var(--color-bg-tertiary)';
-  });
-  
-  closeButton.addEventListener('mouseleave', () => {
-    closeButton.style.backgroundColor = 'transparent';
-  });
-  
-  // Add click handler
-  closeButton.addEventListener('click', () => {
-    hideLauncher();
-  });
-  
-  // Create search container
-  const searchContainer = document.createElement('div');
-  searchContainer.style.flex = '1';
-  searchContainer.style.position = 'relative';
-  searchContainer.style.display = 'flex';
-  searchContainer.style.alignItems = 'center';
-  
-  // Add search icon using Heroicons
-  const searchIconEl = document.createElement('div');
-  searchIconEl.className = 'app-launcher-search-icon';
-  searchIconEl.style.position = 'absolute';
-  searchIconEl.style.left = 'var(--spacing-md)';
-  searchIconEl.style.pointerEvents = 'none';
-  searchIconEl.style.color = 'var(--color-text-secondary)';
-  
-  // Add search icon
-  searchIconEl.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-      <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd" />
-    </svg>
-  `;
-  searchContainer.appendChild(searchIconEl);
-  
-  // Add search input
-  const searchEl = document.createElement('input');
-  searchEl.type = 'text';
-  searchEl.placeholder = 'Search apps...';
-  searchEl.className = 'app-launcher-search';
-  searchEl.style.width = '100%';
-  searchEl.style.padding = 'var(--spacing-md)';
-  searchEl.style.paddingLeft = 'calc(var(--spacing-md) * 2 + 20px)'; // Make room for the icon
-  searchEl.style.borderRadius = 'var(--border-radius-md)';
-  searchEl.style.border = 'var(--border-width) solid var(--border-color)';
-  searchEl.style.fontSize = 'var(--font-size-lg)';
-  searchEl.style.backgroundColor = 'var(--color-bg-secondary)';
-  searchEl.style.color = 'var(--color-text-primary)';
-  
-  // Add search event listener
-  searchEl.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase();
-    filterApps(query);
-  });
-  
-  searchContainer.appendChild(searchEl);
-  headerEl.appendChild(searchContainer);
-  headerEl.appendChild(closeButton);
-  launcherElement.appendChild(headerEl);
+  closeButton.innerHTML = heroicons.close;
+  closeButton.addEventListener('click', hideLauncher);
   
   // Create app grid
-  const gridEl = document.createElement('div');
-  gridEl.className = 'app-launcher-grid';
-  gridEl.style.display = 'grid';
-  gridEl.style.gridTemplateColumns = 'repeat(auto-fill, minmax(120px, 1fr))';
-  gridEl.style.gap = 'var(--spacing-lg)';
-  gridEl.style.flex = '1';
-  gridEl.style.overflowY = 'auto';
-  launcherElement.appendChild(gridEl);
+  const appGrid = document.createElement('div');
+  appGrid.id = 'app-launcher-grid';
+  appGrid.className = 'app-launcher-grid';
+  appGrid.style.display = 'grid';
+  appGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(120px, 1fr))';
+  appGrid.style.gap = '20px';
+  appGrid.style.width = '100%';
+  appGrid.style.maxWidth = '1000px';
   
-  // Add to DOM
-  document.getElementById('app-root').appendChild(launcherElement);
-  
-  // Add click handler to close launcher when clicking outside app icons
-  launcherElement.addEventListener('click', (e) => {
-    if (e.target === launcherElement || e.target === gridEl) {
-      hideLauncher();
-    }
+  // Add search functionality
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    const appItems = appGrid.querySelectorAll('.app-launcher-item');
+    
+    appItems.forEach(item => {
+      const appName = item.querySelector('.app-launcher-item-name').textContent.toLowerCase();
+      if (appName.includes(query) || query === '') {
+        item.style.display = 'flex';
+      } else {
+        item.style.display = 'none';
+      }
+    });
   });
   
-  // Add escape key handler
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isVisible) {
-      hideLauncher();
-    }
-  });
+  // Assemble the launcher
+  searchContainer.appendChild(searchIcon);
+  searchContainer.appendChild(searchInput);
+  launcherElement.appendChild(closeButton);
+  launcherElement.appendChild(searchContainer);
+  launcherElement.appendChild(appGrid);
+  
+  // Add to document
+  document.body.appendChild(launcherElement);
 }
 
 /**
- * Load an app
- * @param {string} appId - App ID
- * @returns {Promise<Object>} App object
+ * Load an app into the launcher
+ * @param {Object} appInfo - App information
+ * @returns {Promise<Object>} Loaded app
  */
-async function loadApp(appId) {
-  console.log(`Loading app: ${appId}`);
+export async function loadApp(appInfo) {
+  console.log(`Loading app: ${appInfo.id}`);
   
-  try {
-    // Check if app is already loaded
-    if (appRegistry.has(appId)) {
-      return appRegistry.get(appId);
-    }
-    
-    // Load app manifest
-    const manifest = await loadAppManifest(appId);
-    
-    // Create app object
-    const app = {
-      id: appId,
-      title: manifest.title || appId,
-      description: manifest.description || '',
-      icon: manifest.icon || null,
-      version: manifest.version || '1.0.0',
-      author: manifest.author || 'Unknown',
-      permissions: manifest.permissions || [],
-      main: manifest.main || 'app.js',
-      singleton: manifest.singleton !== false, // Default to true
-      module: null, // Will be loaded when app is launched
-    };
-    
-    // Add to registry
-    appRegistry.set(appId, app);
-    
-    // Add to launcher
-    addAppToLauncher(app);
-    
-    return app;
-  } catch (error) {
-    console.error(`Failed to load app ${appId}:`, error);
-    throw error;
-  }
+  // Register app
+  appRegistry.set(appInfo.id, appInfo);
+  
+  // Add to grid
+  addAppToGrid(appInfo);
+  
+  return appInfo;
 }
 
 /**
- * Load app manifest
- * @param {string} appId - App ID
- * @returns {Promise<Object>} App manifest
+ * Add app to the launcher grid
+ * @param {Object} appInfo - App information
  */
-async function loadAppManifest(appId) {
-  try {
-    // In a real implementation, this would load the manifest from the file system
-    // For now, we'll return mock data with Heroicons SVG icons
-    
-    // Define app-specific icons using Heroicons
-    const appIcons = {
-      'calculator': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-        <path fill-rule="evenodd" d="M6.32 1.827a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V19.5a3 3 0 01-3 3H6.75a3 3 0 01-3-3V4.757c0-1.47 1.073-2.756 2.57-2.93zM7.5 11.25a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H8.25a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H8.25zm-.75 3a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H8.25a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V18a.75.75 0 00-.75-.75H8.25zm1.748-6a.75.75 0 01.75-.75h.007a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.007a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.335.75.75.75h.007a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75h-.007zm-.75 3a.75.75 0 01.75-.75h.007a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.007a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.335.75.75.75h.007a.75.75 0 00.75-.75V18a.75.75 0 00-.75-.75h-.007zm1.754-6a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.008a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75h-.008zm-.75 3a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.008a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V18a.75.75 0 00-.75-.75h-.008zm1.748-6a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.008a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75h-.008zm-8.25-6A.75.75 0 018.25 6h7.5a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75v-.75zm9 9a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V18a.75.75 0 00-.75-.75h-.008zM15.75 16.5a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.008a.75.75 0 01-.75-.75v-.008z" clip-rule="evenodd" />
-      </svg>`,
-      'text-editor': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-        <path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z" clip-rule="evenodd" />
-        <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
-      </svg>`,
-      'browser': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-        <path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd" />
-      </svg>`,
-      'terminal': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-        <path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd" />
-      </svg>`,
-      'photos': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-        <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
-      </svg>`,
-      'settings': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-        <path fill-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 00-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 00-2.282.819l-.922 1.597a1.875 1.875 0 00.432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 000 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 00-.432 2.385l.922 1.597a1.875 1.875 0 002.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 002.28-.819l.923-1.597a1.875 1.875 0 00-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 000-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 00-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 00-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 00-1.85-1.567h-1.843zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" clip-rule="evenodd" />
-      </svg>`,
-      'finder': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M19.5 21a3 3 0 003-3v-4.5a3 3 0 00-3-3h-15a3 3 0 00-3 3V18a3 3 0 003 3h15zM1.5 10.146V6a3 3 0 013-3h5.379a2.25 2.25 0 011.59.659l2.122 2.121c.14.141.331.22.53.22H19.5a3 3 0 013 3v1.146A4.483 4.483 0 0019.5 9h-15a4.483 4.483 0 00-3 1.146z" />
-      </svg>`,
-      'ai': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M16.5 7.5h-9v9h9v-9z" />
-        <path fill-rule="evenodd" d="M8.25 2.25A.75.75 0 019 3v.75h2.25V3a.75.75 0 011.5 0v.75H15V3a.75.75 0 011.5 0v.75h.75a3 3 0 013 3v.75H21A.75.75 0 0121 9h-.75v2.25H21a.75.75 0 010 1.5h-.75V15H21a.75.75 0 010 1.5h-.75v.75a3 3 0 01-3 3h-.75V21a.75.75 0 01-1.5 0v-.75h-2.25V21a.75.75 0 01-1.5 0v-.75H9V21a.75.75 0 01-1.5 0v-.75h-.75a3 3 0 01-3-3v-.75H3A.75.75 0 013 15h.75v-2.25H3a.75.75 0 010-1.5h.75V9H3a.75.75 0 010-1.5h.75v-.75a3 3 0 013-3h.75V3a.75.75 0 01.75-.75zM6 6.75A.75.75 0 016.75 6h10.5a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V6.75z" clip-rule="evenodd" />
-      </svg>`
-    };
-    
-    // Default icon for apps without specific icons
-    const defaultIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-      <path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm4.5 7.5a.75.75 0 01.75-.75h9a.75.75 0 010 1.5h-9a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
-    </svg>`;
-    
-    return {
-      title: appId.charAt(0).toUpperCase() + appId.slice(1).replace(/-/g, ' '),
-      description: `${appId} application`,
-      icon: appIcons[appId] || defaultIcon,
-      version: '1.0.0',
-      author: 'Kosmo OS',
-      permissions: [],
-      main: 'app.js',
-      singleton: true,
-    };
-  } catch (error) {
-    console.error(`Failed to load manifest for ${appId}:`, error);
-    throw error;
-  }
-}
-
-/**
- * Add app to launcher
- * @param {Object} app - App object
- */
-function addAppToLauncher(app) {
-  // Get app grid
-  const gridEl = document.querySelector('.app-launcher-grid');
-  if (!gridEl) return;
+function addAppToGrid(appInfo) {
+  const appGrid = document.getElementById('app-launcher-grid');
+  if (!appGrid) return;
   
-  // Create app icon element
-  const appEl = document.createElement('div');
-  appEl.className = 'app-launcher-item';
-  appEl.dataset.appId = app.id;
-  appEl.style.display = 'flex';
-  appEl.style.flexDirection = 'column';
-  appEl.style.alignItems = 'center';
-  appEl.style.justifyContent = 'center';
-  appEl.style.padding = 'var(--spacing-md)';
-  appEl.style.borderRadius = 'var(--border-radius-md)';
-  appEl.style.cursor = 'pointer';
-  appEl.style.textAlign = 'center';
-  appEl.style.transition = 'background-color var(--transition-fast)';
+  // Create app item
+  const appItem = document.createElement('div');
+  appItem.className = 'app-launcher-item';
+  appItem.dataset.appId = appInfo.id;
+  appItem.style.display = 'flex';
+  appItem.style.flexDirection = 'column';
+  appItem.style.alignItems = 'center';
+  appItem.style.justifyContent = 'center';
+  appItem.style.padding = '15px';
+  appItem.style.borderRadius = '10px';
+  appItem.style.cursor = 'pointer';
+  appItem.style.transition = 'background-color 0.2s';
   
-  // Add hover effect
-  appEl.addEventListener('mouseenter', () => {
-    appEl.style.backgroundColor = 'var(--color-bg-secondary)';
+  // Hover effect
+  appItem.addEventListener('mouseenter', () => {
+    appItem.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
   });
   
-  appEl.addEventListener('mouseleave', () => {
-    appEl.style.backgroundColor = 'transparent';
+  appItem.addEventListener('mouseleave', () => {
+    appItem.style.backgroundColor = 'transparent';
   });
+  
+  // Create app icon
+  const appIcon = document.createElement('div');
+  appIcon.className = 'app-launcher-item-icon';
+  appIcon.style.width = '60px';
+  appIcon.style.height = '60px';
+  appIcon.style.marginBottom = '10px';
+  appIcon.style.display = 'flex';
+  appIcon.style.alignItems = 'center';
+  appIcon.style.justifyContent = 'center';
+  appIcon.style.color = 'white';
+  
+  // Use heroicons SVG if available, otherwise use default
+  const iconSvg = heroicons[appInfo.id] || heroicons.browser;
+  appIcon.innerHTML = iconSvg;
+  
+  // Create app name
+  const appName = document.createElement('div');
+  appName.className = 'app-launcher-item-name';
+  appName.textContent = appInfo.title || appInfo.id;
+  appName.style.fontSize = '14px';
+  appName.style.color = 'white';
+  appName.style.textAlign = 'center';
+  appName.style.overflow = 'hidden';
+  appName.style.textOverflow = 'ellipsis';
+  appName.style.whiteSpace = 'nowrap';
+  appName.style.width = '100%';
   
   // Add click handler
-  appEl.addEventListener('click', () => {
-    launchApp(app.id);
+  appItem.addEventListener('click', () => {
+    launchApp(appInfo.id);
     hideLauncher();
   });
   
-  // Add app icon
-  const iconEl = document.createElement('div');
-  iconEl.className = 'app-launcher-icon';
-  iconEl.style.width = '64px';
-  iconEl.style.height = '64px';
-  iconEl.style.marginBottom = 'var(--spacing-sm)';
-  iconEl.style.backgroundColor = 'var(--color-bg-tertiary)';
-  iconEl.style.borderRadius = 'var(--border-radius-md)';
-  iconEl.style.display = 'flex';
-  iconEl.style.alignItems = 'center';
-  iconEl.style.justifyContent = 'center';
-  iconEl.style.color = 'var(--color-text-primary)';
-  
-  // Use appropriate icon based on app ID
-  if (app.id === 'calculator') {
-    iconEl.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-        <path fill-rule="evenodd" d="M6.32 1.827a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V19.5a3 3 0 01-3 3H6.75a3 3 0 01-3-3V4.757c0-1.47 1.073-2.756 2.57-2.93zM7.5 11.25a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H8.25a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H8.25zm-.75 3a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H8.25a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V18a.75.75 0 00-.75-.75H8.25zm1.748-6a.75.75 0 01.75-.75h.007a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.007a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.335.75.75.75h.007a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75h-.007zm-.75 3a.75.75 0 01.75-.75h.007a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.007a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.335.75.75.75h.007a.75.75 0 00.75-.75V18a.75.75 0 00-.75-.75h-.007zm1.754-6a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.008a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75h-.008zm-.75 3a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.008a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V18a.75.75 0 00-.75-.75h-.008zm1.748-6a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.008a.75.75 0 01-.75-.75v-.008zm.75 1.5a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75h-.008zm-8.25-6A.75.75 0 018.25 6h7.5a.75.75 0 01.75.75v.75a.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75v-.75zm9 9a.75.75 0 00-.75.75v.75c0 .414.336.75.75.75h.75a.75.75 0 00.75-.75v-.75a.75.75 0 00-.75-.75h-.75z" clip-rule="evenodd" />
-      </svg>
-    `;
-  } else if (app.id === 'text-editor') {
-    iconEl.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-        <path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z" clip-rule="evenodd" />
-        <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
-      </svg>
-    `;
-  } else if (app.id === 'file-browser') {
-    iconEl.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-        <path d="M19.5 21a3 3 0 003-3v-4.5a3 3 0 00-3-3h-15a3 3 0 00-3 3V18a3 3 0 003 3h15zM1.5 10.146V6a3 3 0 013-3h5.379a2.25 2.25 0 011.59.659l2.122 2.121c.14.141.331.22.53.22H19.5a3 3 0 013 3v1.146A4.483 4.483 0 0019.5 9h-15a4.483 4.483 0 00-3 1.146z" />
-      </svg>
-    `;
-  } else if (app.id === 'terminal') {
-    iconEl.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-        <path fill-rule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clip-rule="evenodd" />
-      </svg>
-    `;
-  } else if (app.id === 'settings') {
-    iconEl.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-        <path fill-rule="evenodd" d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 00-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 00-2.282.819l-.922 1.597a1.875 1.875 0 00.432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 000 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 00-.432 2.385l.922 1.597a1.875 1.875 0 002.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 002.28-.819l.923-1.597a1.875 1.875 0 00-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 000-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 00-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 00-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 00-1.85-1.567h-1.843zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" clip-rule="evenodd" />
-      </svg>
-    `;
-  } else if (app.id === 'browser') {
-    iconEl.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-        <path d="M21.721 12.752a9.711 9.711 0 00-.945-5.003 12.754 12.754 0 01-4.339 2.708 18.991 18.991 0 01-.214 4.772 17.165 17.165 0 005.498-2.477zM14.634 15.55a17.324 17.324 0 00.332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 00.332 4.647 17.385 17.385 0 005.268 0zM9.772 17.119a18.963 18.963 0 004.456 0A17.182 17.182 0 0112 21.724a17.18 17.18 0 01-2.228-4.605zM7.777 15.23a18.87 18.87 0 01-.214-4.774 12.753 12.753 0 01-4.34-2.708 9.711 9.711 0 00-.944 5.004 17.165 17.165 0 005.498 2.477zM21.356 14.752a9.765 9.765 0 01-7.478 6.817 18.64 18.64 0 001.988-4.718 18.627 18.627 0 005.49-2.098zM2.644 14.752c1.682.971 3.53 1.688 5.49 2.099a18.64 18.64 0 001.988 4.718 9.765 9.765 0 01-7.478-6.816zM13.878 2.43a9.755 9.755 0 016.116 3.986 11.267 11.267 0 01-3.746 2.504 18.63 18.63 0 00-2.37-6.49zM12 2.276a17.152 17.152 0 012.805 7.121c-.897.23-1.837.353-2.805.353-.968 0-1.908-.122-2.805-.353A17.151 17.151 0 0112 2.276zM10.122 2.43a18.629 18.629 0 00-2.37 6.49 11.266 11.266 0 01-3.746-2.504 9.754 9.754 0 016.116-3.985z" />
-      </svg>
-    `;
-  } else if (app.id === 'todo-list') {
-    iconEl.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-        <path fill-rule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clip-rule="evenodd" />
-        <path fill-rule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zM6 12a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V12zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 15a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V15zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 18a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V18zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
-      </svg>
-    `;
-  } else if (app.id === 'ai') {
-    iconEl.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-        <path fill-rule="evenodd" d="M10.5 3.798v5.02a3 3 0 01-.879 2.121l-2.377 2.377a9.845 9.845 0 015.091 1.013 8.315 8.315 0 005.713.636l.285-.071-3.954-3.955a3 3 0 01-.879-2.121v-5.02a23.614 23.614 0 00-3 0zm4.5.138a.75.75 0 00.093-1.495A24.837 24.837 0 0012 2.25a25.048 25.048 0 00-3.093.191A.75.75 0 009 3.936v4.882a1.5 1.5 0 01-.44 1.06l-6.293 6.294c-1.62 1.621-.903 4.475 1.471 4.88 2.686.46 5.447.698 8.262.698 2.816 0 5.576-.239 8.262-.697 2.373-.406 3.092-3.26 1.47-4.881L15.44 9.879A1.5 1.5 0 0115 8.818V3.936z" clip-rule="evenodd" />
-      </svg>
-    `;
-  } else if (app.icon) {
-    // Check if icon is an SVG string
-    if (typeof app.icon === 'string' && app.icon.trim().startsWith('<svg')) {
-      iconEl.innerHTML = app.icon;
-      // Style the SVG
-      const svgEl = iconEl.querySelector('svg');
-      if (svgEl) {
-        svgEl.style.width = '40px';
-        svgEl.style.height = '40px';
-      }
-    } else {
-      // Handle image URL
-      const imgEl = document.createElement('img');
-      imgEl.src = app.icon;
-      imgEl.alt = app.title;
-      imgEl.style.width = '48px';
-      imgEl.style.height = '48px';
-      iconEl.appendChild(imgEl);
-    }
-  } else {
-    // Use first letter of app title as fallback
-    iconEl.textContent = app.title.charAt(0).toUpperCase();
-    iconEl.style.fontSize = '32px';
-    iconEl.style.fontWeight = 'bold';
-  }
-  
-  appEl.appendChild(iconEl);
-  
-  // Add app title
-  const titleEl = document.createElement('div');
-  titleEl.className = 'app-launcher-title';
-  titleEl.textContent = app.title;
-  titleEl.style.fontSize = 'var(--font-size-sm)';
-  titleEl.style.fontWeight = 'var(--font-weight-medium)';
-  titleEl.style.marginTop = 'var(--spacing-xs)';
-  appEl.appendChild(titleEl);
+  // Assemble app item
+  appItem.appendChild(appIcon);
+  appItem.appendChild(appName);
   
   // Add to grid
-  gridEl.appendChild(appEl);
+  appGrid.appendChild(appItem);
 }
 
 /**
- * Filter apps by search query
- * @param {string} query - Search query
- */
-function filterApps(query) {
-  // Get all app items
-  const appItems = document.querySelectorAll('.app-launcher-item');
-  
-  // Filter apps
-  appItems.forEach(appEl => {
-    const appId = appEl.dataset.appId;
-    const app = appRegistry.get(appId);
-    
-    if (!app) return;
-    
-    // Check if app matches query
-    const matches = app.title.toLowerCase().includes(query) || 
-                   app.description.toLowerCase().includes(query) ||
-                   app.id.toLowerCase().includes(query);
-    
-    // Show or hide app
-    appEl.style.display = matches ? 'flex' : 'none';
-  });
-}
-
-/**
- * Unload an app
- * @param {string} appId - App ID
+ * Unload an app from the launcher
+ * @param {string} appId - App ID to unload
  * @returns {boolean} Success
  */
-function unloadApp(appId) {
-  // Check if app is loaded
-  if (!appRegistry.has(appId)) {
-    console.warn(`App ${appId} is not loaded`);
-    return false;
-  }
-  
+export function unloadApp(appId) {
   // Remove from registry
+  if (!appRegistry.has(appId)) return false;
   appRegistry.delete(appId);
   
-  // Remove from launcher
-  const appEl = document.querySelector(`.app-launcher-item[data-app-id="${appId}"]`);
-  if (appEl) {
-    appEl.remove();
+  // Remove from grid
+  const appGrid = document.getElementById('app-launcher-grid');
+  if (appGrid) {
+    const appItem = appGrid.querySelector(`.app-launcher-item[data-app-id="${appId}"]`);
+    if (appItem) {
+      appGrid.removeChild(appItem);
+    }
   }
   
-  console.log(`Unloaded app: ${appId}`);
   return true;
 }
 
 /**
  * Launch an app
- * @param {string} appId - App ID
- * @returns {Promise<Object>} Window object
+ * @param {string} appId - App ID to launch
+ * @returns {Promise<Object>} Launched app instance
  */
-async function launchApp(appId) {
+export async function launchApp(appId) {
   console.log(`Launching app: ${appId}`);
   
-  try {
-    // Get app from registry
-    const app = appRegistry.get(appId);
-    if (!app) {
-      throw new Error(`App ${appId} is not loaded`);
-    }
-    
-    // In a real implementation, this would load the app module
-    // For now, we'll create a mock window
-    
-    // Import WindowManager
-    const { initWindowManager } = await import('./WindowManager.js');
-    const windowManager = await initWindowManager();
-    
-    // Create window
-    const window = windowManager.createWindow({
-      title: app.title,
-      width: 800,
-      height: 600,
-      icon: app.icon,
-      content: `
-        <div style="padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-          <h2>${app.title}</h2>
-          <p>Version: ${app.version}</p>
-          <p>Author: ${app.author}</p>
-          <p>This is a placeholder for the ${app.title} app.</p>
-        </div>
-      `,
-    });
-    
-    return window;
-  } catch (error) {
-    console.error(`Failed to launch app ${appId}:`, error);
-    throw error;
+  // Get app info
+  const appInfo = appRegistry.get(appId);
+  if (!appInfo) {
+    console.error(`App not found: ${appId}`);
+    return null;
   }
+  
+  // Launch app
+  if (typeof appInfo.launch === 'function') {
+    return await appInfo.launch();
+  }
+  
+  return null;
 }
 
 /**
  * Get all installed apps
- * @returns {Array} Array of app objects
+ * @returns {Array} Array of app info objects
  */
-function getInstalledApps() {
+export function getInstalledApps() {
   return Array.from(appRegistry.values());
 }
 
 /**
  * Show the app launcher
  */
-function showLauncher() {
-  if (!launcherElement) return;
+export function showLauncher() {
+  if (!launcherElement) createLauncherElement();
   
   launcherElement.style.display = 'flex';
   isVisible = true;
   
   // Focus search input
-  const searchEl = launcherElement.querySelector('.app-launcher-search');
-  if (searchEl) {
-    searchEl.focus();
+  const searchInput = launcherElement.querySelector('.app-launcher-search-input');
+  if (searchInput) {
+    setTimeout(() => searchInput.focus(), 100);
   }
 }
 
 /**
  * Hide the app launcher
  */
-function hideLauncher() {
-  if (!launcherElement) return;
-  
-  launcherElement.style.display = 'none';
-  isVisible = false;
+export function hideLauncher() {
+  if (launcherElement) {
+    launcherElement.style.display = 'none';
+    isVisible = false;
+  }
 }
 
 /**
- * Toggle the app launcher
+ * Toggle the app launcher visibility
  */
-function toggleLauncher() {
+export function toggleLauncher() {
   if (isVisible) {
     hideLauncher();
   } else {
