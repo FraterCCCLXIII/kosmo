@@ -447,3 +447,24 @@ function getContext() {
 function clearContext() {
   aiContext = [];
 }
+
+/**
+ * Launch the AI Panel app
+ * @returns {Promise<Object>} Window instance
+ */
+export async function launch() {
+  console.log('Launching AI Panel app...');
+  
+  // Initialize AI panel if not already initialized
+  if (!aiConfig) {
+    await initAiPanel();
+  }
+  
+  // Show the panel
+  await togglePanel(true);
+  
+  // Return the window
+  const { getWindowManager } = await import('../ui/WindowManager.js');
+  const windowManager = await getWindowManager();
+  return windowManager.getWindow('ai-panel');
+}
