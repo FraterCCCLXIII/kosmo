@@ -4,7 +4,46 @@
  */
 
 // Import dependencies
-import { FolderIcon, DocumentIcon, ArrowUpIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/solid';
+import { createWindow } from '../../ui/WindowManager.js';
+import { getVirtualFS } from '../../fs/VirtualFS.js';
+
+// Define icon SVG paths
+const ICONS = {
+  folder: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 21a3 3 0 0 0 3-3v-4.5a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3V18a3 3 0 0 0 3 3h15ZM1.5 10.146V6a3 3 0 0 1 3-3h5.379a2.25 2.25 0 0 1 1.59.659l2.122 2.121c.14.141.331.22.53.22H19.5a3 3 0 0 1 3 3v1.146A4.483 4.483 0 0 0 19.5 9h-15a4.483 4.483 0 0 0-3 1.146Z" /></svg>',
+  document: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625Z" /><path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" /></svg>',
+  arrowUp: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1-1.06 1.06l-2.47-2.47V21a.75.75 0 0 1-1.5 0V4.81L8.78 7.28a.75.75 0 0 1-1.06-1.06l3.75-3.75Z" clip-rule="evenodd" /></svg>',
+  plus: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" /></svg>',
+  trash: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" /></svg>'
+};
+
+/**
+ * Launch the file browser app
+ * @returns {Promise<Object>} Window instance
+ */
+export async function launch() {
+  console.log('Launching file browser app...');
+  
+  // Create window
+  const window = createWindow({
+    title: 'File Browser',
+    width: 800,
+    height: 600,
+    minWidth: 400,
+    minHeight: 300,
+    resizable: true,
+    maximizable: true,
+    minimizable: true,
+    closable: true,
+  });
+  
+  // Get virtual file system
+  const fs = getVirtualFS();
+  
+  // Initialize file browser in window content
+  await init({ container: window.content, fs });
+  
+  return window;
+}
 
 /**
  * Initialize the file browser app
@@ -62,13 +101,7 @@ export async function init({ container, fs }) {
     // Add navigation button
     const backBtn = document.createElement('button');
     backBtn.className = 'file-browser-back-btn';
-    // Create SVG from React icon
-    const backBtnSvg = ArrowUpIcon({
-      width: 24,
-      height: 24,
-      className: 'back-icon'
-    }).props.children;
-    backBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${backBtnSvg}</svg>`;
+    backBtn.innerHTML = ICONS.arrowUp;
     backBtn.title = 'Go up';
     backBtn.style.display = 'flex';
     backBtn.style.alignItems = 'center';
@@ -251,13 +284,11 @@ export async function init({ container, fs }) {
     iconEl.style.justifyContent = 'center';
     iconEl.style.marginBottom = 'var(--spacing-sm)';
     iconEl.style.color = item.isDirectory ? 'var(--color-folder)' : 'var(--color-file)';
-    // Create SVG from React icon
-    const iconSvg = (item.isDirectory ? FolderIcon : DocumentIcon)({
-      width: 32,
-      height: 32,
-      className: item.isDirectory ? 'folder-icon' : 'document-icon'
-    }).props.children;
-    iconEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">${iconSvg}</svg>`;
+    
+    // Use SVG icon
+    iconEl.innerHTML = item.isDirectory ? ICONS.folder : ICONS.document;
+    iconEl.querySelector('svg').style.width = '32px';
+    iconEl.querySelector('svg').style.height = '32px';
     itemEl.appendChild(iconEl);
     
     // Add name

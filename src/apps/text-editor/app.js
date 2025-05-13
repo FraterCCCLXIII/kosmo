@@ -3,10 +3,38 @@
  * A simple text editor application
  */
 
+import { createWindow } from '../../ui/WindowManager.js';
+
 // Text editor state
 let currentFile = null;
 let content = '';
 let isModified = false;
+
+/**
+ * Launch the text editor app
+ * @returns {Promise<Object>} Window instance
+ */
+export async function launch() {
+  console.log('Launching text editor app...');
+  
+  // Create window
+  const window = createWindow({
+    title: 'Text Editor',
+    width: 800,
+    height: 600,
+    minWidth: 400,
+    minHeight: 300,
+    resizable: true,
+    maximizable: true,
+    minimizable: true,
+    closable: true,
+  });
+  
+  // Initialize text editor in window content
+  initTextEditor(window.content);
+  
+  return window;
+}
 
 /**
  * Initialize the text editor app

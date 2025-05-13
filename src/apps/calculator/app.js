@@ -3,11 +3,39 @@
  * A simple calculator application
  */
 
+import { createWindow } from '../../ui/WindowManager.js';
+
 // Calculator state
 let displayValue = '0';
 let firstOperand = null;
 let operator = null;
 let waitingForSecondOperand = false;
+
+/**
+ * Launch the calculator app
+ * @returns {Promise<Object>} Window instance
+ */
+export async function launch() {
+  console.log('Launching calculator app...');
+  
+  // Create window
+  const window = createWindow({
+    title: 'Calculator',
+    width: 320,
+    height: 480,
+    minWidth: 240,
+    minHeight: 360,
+    resizable: true,
+    maximizable: true,
+    minimizable: true,
+    closable: true,
+  });
+  
+  // Initialize calculator in window content
+  initCalculator(window.content);
+  
+  return window;
+}
 
 /**
  * Initialize the calculator app
