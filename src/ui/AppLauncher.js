@@ -279,16 +279,24 @@ function addAppToGrid(appInfo) {
   const iconSvg = heroicons[appInfo.id] || heroicons.browser;
   
   // Create SVG element properly
-  const svgContainer = document.createElement('div');
-  svgContainer.innerHTML = iconSvg;
-  const svgElement = svgContainer.firstChild;
-  
-  // Set SVG size and styles
-  if (svgElement) {
-    svgElement.style.width = '100%';
-    svgElement.style.height = '100%';
-    appIcon.appendChild(svgElement);
-  } else {
+  try {
+    const parser = new DOMParser();
+    const svgDoc = parser.parseFromString(iconSvg, 'image/svg+xml');
+    const svgElement = svgDoc.documentElement;
+    
+    // Set SVG size and styles
+    if (svgElement) {
+      svgElement.setAttribute('width', '100%');
+      svgElement.setAttribute('height', '100%');
+      
+      // Import the SVG into the current document
+      const importedNode = document.importNode(svgElement, true);
+      appIcon.appendChild(importedNode);
+    } else {
+      throw new Error('SVG parsing failed');
+    }
+  } catch (error) {
+    console.warn('Error parsing SVG, using innerHTML fallback', error);
     // Fallback if SVG parsing fails
     appIcon.innerHTML = iconSvg;
   }
