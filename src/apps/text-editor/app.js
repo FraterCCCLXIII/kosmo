@@ -36,7 +36,15 @@ export async function launch() {
   // Initialize text editor in window content
   console.log('Window content element:', window.getContentElement());
   try {
-    initTextEditor(window.getContentElement());
+    // Make sure the content element has proper styling
+    const contentEl = window.getContentElement();
+    contentEl.style.display = 'flex';
+    contentEl.style.flexDirection = 'column';
+    contentEl.style.width = '100%';
+    contentEl.style.height = '100%';
+    contentEl.style.overflow = 'hidden';
+    
+    initTextEditor(contentEl);
     console.log('Text editor initialized successfully');
   } catch (error) {
     console.error('Error initializing text editor:', error);

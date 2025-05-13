@@ -40,7 +40,15 @@ export async function launch() {
   // Create photos UI
   console.log('Window content element:', window.getContentElement());
   try {
-    createPhotosUI(window.getContentElement());
+    // Make sure the content element has proper styling
+    const contentEl = window.getContentElement();
+    contentEl.style.display = 'flex';
+    contentEl.style.flexDirection = 'column';
+    contentEl.style.width = '100%';
+    contentEl.style.height = '100%';
+    contentEl.style.overflow = 'hidden';
+    
+    createPhotosUI(contentEl);
     console.log('Photos app initialized successfully');
   } catch (error) {
     console.error('Error initializing photos app:', error);

@@ -37,7 +37,15 @@ export async function launch() {
   // Initialize calculator in window content
   console.log('Window content element:', window.getContentElement());
   try {
-    initCalculator(window.getContentElement());
+    // Make sure the content element has proper styling
+    const contentEl = window.getContentElement();
+    contentEl.style.display = 'flex';
+    contentEl.style.flexDirection = 'column';
+    contentEl.style.width = '100%';
+    contentEl.style.height = '100%';
+    contentEl.style.overflow = 'hidden';
+    
+    initCalculator(contentEl);
     console.log('Calculator initialized successfully');
   } catch (error) {
     console.error('Error initializing calculator:', error);

@@ -48,7 +48,15 @@ export async function launch() {
   // Initialize settings in window content
   console.log('Window content element:', window.getContentElement());
   try {
-    await init({ container: window.getContentElement(), themeManager, i18n });
+    // Make sure the content element has proper styling
+    const contentEl = window.getContentElement();
+    contentEl.style.display = 'flex';
+    contentEl.style.flexDirection = 'column';
+    contentEl.style.width = '100%';
+    contentEl.style.height = '100%';
+    contentEl.style.overflow = 'hidden';
+    
+    await init({ container: contentEl, themeManager, i18n });
     console.log('Settings app initialized successfully');
   } catch (error) {
     console.error('Error initializing settings app:', error);
