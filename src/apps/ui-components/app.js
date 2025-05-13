@@ -6,6 +6,13 @@
 
 import { getWindowManager } from '../../ui/WindowManager.js';
 import { createButton } from '../../ui/UIComponents/inputs/Button.js';
+import { createCheckbox } from '../../ui/UIComponents/inputs/Checkbox.js';
+import { createDropdown } from '../../ui/UIComponents/inputs/Dropdown.js';
+import { createInputField } from '../../ui/UIComponents/inputs/InputField.js';
+import { createLoader } from '../../ui/UIComponents/feedback/Loader.js';
+import { createToast } from '../../ui/UIComponents/feedback/Toast.js';
+import { createContainer } from '../../ui/UIComponents/layout/Container.js';
+import { createGrid } from '../../ui/UIComponents/layout/Grid.js';
 
 // Component definitions with examples
 const components = [
@@ -17,6 +24,58 @@ const components = [
       { props: { text: 'Secondary Button', variant: 'secondary' } },
       { props: { text: 'Text Button', variant: 'text' } },
       { props: { text: 'Disabled Button', disabled: true } }
+    ]
+  },
+  {
+    name: 'Checkbox',
+    component: createCheckbox,
+    examples: [
+      { props: { label: 'Unchecked', checked: false } },
+      { props: { label: 'Checked', checked: true } },
+      { props: { label: 'Disabled', disabled: true } }
+    ]
+  },
+  {
+    name: 'Dropdown',
+    component: createDropdown,
+    examples: [
+      { 
+        props: { 
+          label: 'Select an option',
+          options: [
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' },
+            { value: 'option3', label: 'Option 3' }
+          ]
+        } 
+      }
+    ]
+  },
+  {
+    name: 'Input Field',
+    component: createInputField,
+    examples: [
+      { props: { label: 'Text Input', placeholder: 'Enter text...' } },
+      { props: { label: 'Password', type: 'password', placeholder: 'Enter password...' } },
+      { props: { label: 'Disabled', disabled: true, value: 'Disabled input' } }
+    ]
+  },
+  {
+    name: 'Loader',
+    component: createLoader,
+    examples: [
+      { props: { size: 'small' } },
+      { props: { size: 'medium' } },
+      { props: { size: 'large' } }
+    ]
+  },
+  {
+    name: 'Toast',
+    component: createToast,
+    examples: [
+      { props: { message: 'Success message', type: 'success' } },
+      { props: { message: 'Error message', type: 'error' } },
+      { props: { message: 'Info message', type: 'info' } }
     ]
   }
 ];
@@ -148,10 +207,10 @@ export async function launch() {
   });
   
   // Initialize UI Components app in window content
-  console.log('Window content element:', window.content);
+  console.log('Window content element:', window.getContentElement());
   try {
     // Make sure the content element has proper styling
-    const contentEl = window.content;
+    const contentEl = window.getContentElement();
     contentEl.style.display = 'flex';
     contentEl.style.flexDirection = 'column';
     contentEl.style.width = '100%';
@@ -162,7 +221,7 @@ export async function launch() {
     console.log('UI Components app initialized successfully');
   } catch (error) {
     console.error('Error initializing UI Components app:', error);
-    window.content.innerHTML = `
+    window.getContentElement().innerHTML = `
       <div style="padding: 20px; color: red;">
         <h3>Error initializing UI Components app</h3>
         <p>${error.message}</p>

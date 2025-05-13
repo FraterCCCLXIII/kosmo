@@ -54,10 +54,15 @@ export async function initWindowManager() {
     windowContainer = document.createElement('div');
     windowContainer.id = 'window-container';
     windowContainer.style.position = 'absolute';
-    windowContainer.style.top = '0';
+    
+    // Get the top nav height
+    const topNav = document.getElementById('top-nav');
+    const topNavHeight = topNav ? topNav.offsetHeight : 40; // Default to 40px if not found
+    
+    windowContainer.style.top = `${topNavHeight}px`;
     windowContainer.style.left = '0';
     windowContainer.style.width = '100%';
-    windowContainer.style.height = '100%';
+    windowContainer.style.height = `calc(100% - ${topNavHeight}px)`;
     windowContainer.style.overflow = 'hidden';
     windowContainer.style.pointerEvents = 'none'; // Let clicks pass through to elements below
     document.getElementById('app-root').appendChild(windowContainer);
@@ -217,26 +222,37 @@ function createWindow(options = {}) {
   
   windowEl.appendChild(contentEl);
   
-  // Add resize handle if window is resizable
+  // Add resize functionality if window is resizable
   if (windowOptions.resizable) {
-    const resizeHandleEl = document.createElement('div');
-    resizeHandleEl.className = 'os-window-resize-handle';
-    resizeHandleEl.style.position = 'absolute';
-    resizeHandleEl.style.bottom = '0';
-    resizeHandleEl.style.right = '0';
-    resizeHandleEl.style.width = '16px';
-    resizeHandleEl.style.height = '16px';
-    resizeHandleEl.style.cursor = 'nwse-resize';
-    resizeHandleEl.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 14L8 14L14 8L14 14Z" fill="var(--color-text-tertiary)" />
-        <path d="M10 14L14 10L14 14L10 14Z" fill="var(--color-text-tertiary)" />
-      </svg>
-    `;
-    windowEl.appendChild(resizeHandleEl);
+    // Create resize handles for all sides and corners
+    const resizeHandles = {
+      n: { cursor: 'ns-resize', top: '-5px', left: '0', right: '0', height: '10px', width: 'auto' },
+      e: { cursor: 'ew-resize', top: '0', right: '-5px', bottom: '0', width: '10px', height: 'auto' },
+      s: { cursor: 'ns-resize', bottom: '-5px', left: '0', right: '0', height: '10px', width: 'auto' },
+      w: { cursor: 'ew-resize', top: '0', left: '-5px', bottom: '0', width: '10px', height: 'auto' },
+      ne: { cursor: 'nesw-resize', top: '-5px', right: '-5px', width: '10px', height: '10px' },
+      se: { cursor: 'nwse-resize', bottom: '-5px', right: '-5px', width: '10px', height: '10px' },
+      sw: { cursor: 'nesw-resize', bottom: '-5px', left: '-5px', width: '10px', height: '10px' },
+      nw: { cursor: 'nwse-resize', top: '-5px', left: '-5px', width: '10px', height: '10px' }
+    };
     
-    // Add resize functionality
-    setupResizeHandlers(windowEl, resizeHandleEl, windowId, windowOptions);
+    // Create and add all resize handles
+    Object.entries(resizeHandles).forEach(([direction, styles]) => {
+      const handleEl = document.createElement('div');
+      handleEl.className = `os-window-resize-handle os-window-resize-${direction}`;
+      handleEl.style.position = 'absolute';
+      handleEl.style.zIndex = '10';
+      
+      // Apply styles
+      Object.entries(styles).forEach(([prop, value]) => {
+        handleEl.style[prop] = value;
+      });
+      
+      windowEl.appendChild(handleEl);
+      
+      // Add resize functionality for this handle
+      setupResizeHandlers(windowEl, handleEl, windowId, windowOptions, direction);
+    });
   }
   
   // Add drag functionality to titlebar
@@ -343,6 +359,10 @@ function calculateWindowPosition(options) {
   const containerWidth = container.clientWidth;
   const containerHeight = container.clientHeight;
   
+  // Get the top nav height
+  const topNav = document.getElementById('top-nav');
+  const topNavHeight = topNav ? topNav.offsetHeight : 40; // Default to 40px if not found
+  
   let x = options.x;
   let y = options.y;
   
@@ -352,7 +372,8 @@ function calculateWindowPosition(options) {
   }
   
   if (y === 'center') {
-    y = Math.max(0, (containerHeight - options.height) / 2);
+    // Center vertically in the available space below the top nav
+    y = Math.max(topNavHeight, topNavHeight + (containerHeight - topNavHeight - options.height) / 2);
   }
   
   // Apply cascade effect for new windows
@@ -362,9 +383,9 @@ function calculateWindowPosition(options) {
     y += windowCount * 20;
   }
   
-  // Ensure window is within viewport
+  // Ensure window is within viewport and below top nav
   x = Math.min(Math.max(0, x), containerWidth - options.width);
-  y = Math.min(Math.max(0, y), containerHeight - options.height);
+  y = Math.min(Math.max(topNavHeight, y), containerHeight - options.height);
   
   return { x, y };
 }
@@ -432,10 +453,11 @@ function setupDragHandlers(windowEl, titlebarEl, windowId) {
  * @param {HTMLElement} handleEl - Resize handle element
  * @param {string} windowId - Window ID
  * @param {Object} options - Window options
+ * @param {string} direction - Resize direction (n, e, s, w, ne, se, sw, nw)
  */
-function setupResizeHandlers(windowEl, handleEl, windowId, options) {
+function setupResizeHandlers(windowEl, handleEl, windowId, options, direction = 'se') {
   let isResizing = false;
-  let startX, startY, startWidth, startHeight;
+  let startX, startY, startWidth, startHeight, startLeft, startTop;
   
   handleEl.addEventListener('mousedown', (e) => {
     // Start resizing
@@ -444,6 +466,8 @@ function setupResizeHandlers(windowEl, handleEl, windowId, options) {
     startY = e.clientY;
     startWidth = parseInt(windowEl.style.width, 10);
     startHeight = parseInt(windowEl.style.height, 10);
+    startLeft = parseInt(windowEl.style.left, 10);
+    startTop = parseInt(windowEl.style.top, 10);
     
     // Focus window
     focusWindow(windowId);
@@ -455,20 +479,55 @@ function setupResizeHandlers(windowEl, handleEl, windowId, options) {
   document.addEventListener('mousemove', (e) => {
     if (!isResizing) return;
     
-    // Calculate new size
+    // Calculate deltas
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
-    const newWidth = Math.max(options.minWidth, startWidth + dx);
-    const newHeight = Math.max(options.minHeight, startHeight + dy);
     
-    // Update window size
+    let newWidth = startWidth;
+    let newHeight = startHeight;
+    let newLeft = startLeft;
+    let newTop = startTop;
+    
+    // Handle resize based on direction
+    if (direction.includes('e')) {
+      // East (right) edge
+      newWidth = Math.max(options.minWidth, startWidth + dx);
+    }
+    
+    if (direction.includes('w')) {
+      // West (left) edge
+      const widthChange = Math.min(startWidth - options.minWidth, dx);
+      newWidth = startWidth - widthChange;
+      newLeft = startLeft + widthChange;
+    }
+    
+    if (direction.includes('s')) {
+      // South (bottom) edge
+      newHeight = Math.max(options.minHeight, startHeight + dy);
+    }
+    
+    if (direction.includes('n')) {
+      // North (top) edge
+      const heightChange = Math.min(startHeight - options.minHeight, dy);
+      newHeight = startHeight - heightChange;
+      newTop = startTop + heightChange;
+    }
+    
+    // Update window size and position
     windowEl.style.width = `${newWidth}px`;
     windowEl.style.height = `${newHeight}px`;
+    windowEl.style.left = `${newLeft}px`;
+    windowEl.style.top = `${newTop}px`;
     
     // Call onResize callback if provided
     const windowData = windows.get(windowId);
     if (windowData && windowData.options.onResize) {
       windowData.options.onResize(newWidth, newHeight);
+    }
+    
+    // Call onMove callback if position changed
+    if ((newLeft !== startLeft || newTop !== startTop) && windowData && windowData.options.onMove) {
+      windowData.options.onMove(newLeft, newTop);
     }
   });
   
