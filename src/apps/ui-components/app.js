@@ -30,6 +30,7 @@ function createComponentCard(title, container, renderFn) {
   card.style.display = 'flex';
   card.style.flexDirection = 'column';
   card.style.gap = '12px';
+  card.style.minHeight = '200px';
   
   // Create card header
   const header = document.createElement('h3');
@@ -38,13 +39,17 @@ function createComponentCard(title, container, renderFn) {
   header.style.fontSize = '18px';
   header.style.fontWeight = 'bold';
   header.style.color = '#333';
+  header.style.borderBottom = '1px solid #eee';
+  header.style.paddingBottom = '8px';
   card.appendChild(header);
   
   // Create examples container
   const examplesContainer = document.createElement('div');
   examplesContainer.style.display = 'flex';
   examplesContainer.style.flexDirection = 'column';
-  examplesContainer.style.gap = '8px';
+  examplesContainer.style.gap = '12px';
+  examplesContainer.style.flex = '1';
+  examplesContainer.style.padding = '8px 0';
   
   // Render examples
   try {
@@ -88,19 +93,35 @@ function initUIComponentsApp(container) {
   appContainer.style.padding = '20px';
   appContainer.style.height = '100%';
   appContainer.style.overflow = 'auto';
+  appContainer.style.display = 'flex';
+  appContainer.style.flexDirection = 'column';
   
-  // Create title
+  // Create header
+  const header = document.createElement('div');
+  header.style.marginBottom = '20px';
+  header.style.borderBottom = '1px solid #ddd';
+  header.style.paddingBottom = '10px';
+  
   const title = document.createElement('h2');
   title.textContent = 'UI Components Showcase';
-  title.style.marginBottom = '20px';
+  title.style.margin = '0 0 10px 0';
   title.style.color = '#333';
-  appContainer.appendChild(title);
+  
+  const description = document.createElement('p');
+  description.textContent = 'A showcase of all UI components available in the Kosmo OS UI Kit';
+  description.style.margin = '0';
+  description.style.color = '#666';
+  
+  header.appendChild(title);
+  header.appendChild(description);
+  appContainer.appendChild(header);
   
   // Create components grid
   const componentsGrid = document.createElement('div');
   componentsGrid.style.display = 'grid';
   componentsGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
   componentsGrid.style.gap = '20px';
+  componentsGrid.style.flex = '1';
   
   // Add Button component card
   createComponentCard('Button', componentsGrid, (container) => {
@@ -248,6 +269,18 @@ function initUIComponentsApp(container) {
   });
   
   appContainer.appendChild(componentsGrid);
+  
+  // Add footer
+  const footer = document.createElement('div');
+  footer.style.marginTop = '20px';
+  footer.style.borderTop = '1px solid #ddd';
+  footer.style.paddingTop = '10px';
+  footer.style.color = '#666';
+  footer.style.fontSize = '12px';
+  footer.style.textAlign = 'center';
+  footer.textContent = 'Kosmo OS UI Kit - Version 0.1.0';
+  appContainer.appendChild(footer);
+  
   container.appendChild(appContainer);
 }
 
@@ -283,9 +316,13 @@ export async function launch() {
     contentEl.style.width = '100%';
     contentEl.style.height = '100%';
     contentEl.style.overflow = 'hidden';
+    contentEl.style.backgroundColor = '#f5f5f5';
     
-    initUIComponentsApp(contentEl);
-    console.log('UI Components app initialized successfully');
+    // Add a small delay to ensure the window is fully rendered
+    setTimeout(() => {
+      initUIComponentsApp(contentEl);
+      console.log('UI Components app initialized successfully');
+    }, 100);
   } catch (error) {
     console.error('Error initializing UI Components app:', error);
     window.getContentElement().innerHTML = `
