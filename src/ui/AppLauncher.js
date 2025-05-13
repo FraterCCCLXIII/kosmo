@@ -236,7 +236,7 @@ export async function loadApp(appInfo) {
           id: appId,
           title: manifest.title || appId,
           description: manifest.description || '',
-          icon: manifest.icon || null,
+          icon: `/src/apps/${appId}/icon.svg`,
           path: appPath
         };
       } catch (error) {
@@ -245,6 +245,7 @@ export async function loadApp(appInfo) {
           id: appId,
           title: appId.charAt(0).toUpperCase() + appId.slice(1).replace(/-/g, ' '),
           description: '',
+          icon: `/src/apps/${appId}/icon.svg`,
           path: appPath
         };
       }
@@ -320,31 +321,49 @@ function addAppToGrid(appInfo) {
   appIcon.style.justifyContent = 'center';
   appIcon.style.color = 'white';
   
-  // Use heroicons SVG if available, otherwise use default
-  const iconSvg = heroicons[appInfo.id] || heroicons.browser;
+  // Try to load the app's SVG icon
+  const iconPath = `/src/apps/${appInfo.id}/icon.svg`;
   
-  // Create SVG element properly
-  try {
-    const parser = new DOMParser();
-    const svgDoc = parser.parseFromString(iconSvg, 'image/svg+xml');
-    const svgElement = svgDoc.documentElement;
+  // Create image element for the icon
+  const iconImg = document.createElement('img');
+  iconImg.src = iconPath;
+  iconImg.alt = `${appInfo.title} icon`;
+  iconImg.style.width = '100%';
+  iconImg.style.height = '100%';
+  iconImg.style.objectFit = 'contain';
+  
+  // Add error handling to fall back to heroicons if the SVG fails to load
+  iconImg.onerror = () => {
+    console.warn(`Failed to load icon for ${appInfo.id}, using fallback`);
+    // Use heroicons SVG if available, otherwise use default
+    const iconSvg = heroicons[appInfo.id] || heroicons.browser;
     
-    // Set SVG size and styles
-    if (svgElement) {
-      svgElement.setAttribute('width', '100%');
-      svgElement.setAttribute('height', '100%');
+    // Create SVG element properly
+    try {
+      const parser = new DOMParser();
+      const svgDoc = parser.parseFromString(iconSvg, 'image/svg+xml');
+      const svgElement = svgDoc.documentElement;
       
-      // Import the SVG into the current document
-      const importedNode = document.importNode(svgElement, true);
-      appIcon.appendChild(importedNode);
-    } else {
-      throw new Error('SVG parsing failed');
+      // Set SVG size and styles
+      if (svgElement) {
+        svgElement.setAttribute('width', '100%');
+        svgElement.setAttribute('height', '100%');
+        
+        // Import the SVG into the current document
+        const importedNode = document.importNode(svgElement, true);
+        appIcon.innerHTML = ''; // Clear any previous content
+        appIcon.appendChild(importedNode);
+      } else {
+        throw new Error('SVG parsing failed');
+      }
+    } catch (error) {
+      console.warn('Error parsing SVG, using innerHTML fallback', error);
+      // Fallback if SVG parsing fails
+      appIcon.innerHTML = iconSvg;
     }
-  } catch (error) {
-    console.warn('Error parsing SVG, using innerHTML fallback', error);
-    // Fallback if SVG parsing fails
-    appIcon.innerHTML = iconSvg;
-  }
+  };
+  
+  appIcon.appendChild(iconImg);
   
   // Create app name
   const appName = document.createElement('div');

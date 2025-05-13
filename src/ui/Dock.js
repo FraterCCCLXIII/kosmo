@@ -7,13 +7,13 @@
 let dockElement = null;
 let runningApps = new Map();
 let pinnedApps = [
-  { id: 'finder', title: 'Finder', icon: '/src/assets/icons/finder.svg' },
-  { id: 'calculator', title: 'Calculator', icon: '/src/assets/icons/calculator.svg' },
-  { id: 'text-editor', title: 'Text Editor', icon: '/src/assets/icons/text-editor.svg' },
-  { id: 'browser', title: 'Browser', icon: '/src/assets/icons/browser.svg' },
-  { id: 'terminal', title: 'Terminal', icon: '/src/assets/icons/terminal.svg' },
-  { id: 'photos', title: 'Photos', icon: '/src/assets/icons/photos.svg' },
-  { id: 'settings', title: 'Settings', icon: '/src/assets/icons/settings.svg' }
+  { id: 'finder', title: 'Finder', icon: '/src/apps/finder/icon.svg' },
+  { id: 'calculator', title: 'Calculator', icon: '/src/apps/calculator/icon.svg' },
+  { id: 'text-editor', title: 'Text Editor', icon: '/src/apps/text-editor/icon.svg' },
+  { id: 'browser', title: 'Browser', icon: '/src/apps/browser/icon.svg' },
+  { id: 'terminal', title: 'Terminal', icon: '/src/apps/terminal/icon.svg' },
+  { id: 'photos', title: 'Photos', icon: '/src/apps/photos/icon.svg' },
+  { id: 'settings', title: 'Settings', icon: '/src/apps/settings/icon.svg' }
 ];
 
 /**
