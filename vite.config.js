@@ -12,7 +12,9 @@ export default defineConfig({
     },
     allowedHosts: true,
     hmr: {
-      clientPort: 443
+      clientPort: 12000,
+      host: 'work-1-sclrpukjorzfitga.prod-runtime.all-hands.dev',
+      protocol: 'wss'
     }
   },
   build: {

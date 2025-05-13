@@ -2,23 +2,17 @@
  * Taskbar
  * Running apps UI, minimize/maximize
  */
-// Import Heroicons
-import { 
-  CalculatorIcon, 
-  DocumentTextIcon, 
-  FolderIcon, 
-  CommandLineIcon, 
-  Cog6ToothIcon, 
-  GlobeAltIcon, 
-  ListBulletIcon,
-  SparklesIcon,
-  ClipboardDocumentCheckIcon,
-  CalendarIcon,
-  EnvelopeIcon,
-  PhotoIcon,
-  MusicalNoteIcon,
-  ChatBubbleLeftRightIcon
-} from '@heroicons/react/24/solid';
+// Import Heroicons SVG paths
+const ICON_PATHS = {
+  calculator: 'M6.75 4.5A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75ZM18 6.75v10.5H6V6.75h12ZM7.5 12h.75v.75H7.5V12Zm1.5 0h.75v.75H9V12Zm1.5 0h.75v.75H10.5V12Zm1.5 0h.75v.75H12V12Zm1.5 0h.75v.75H13.5V12Zm1.5 0h.75v.75H15V12Zm1.5 0h.75v.75H16.5V12Zm-9 1.5h.75v.75H7.5v-.75Zm1.5 0h.75v.75H9v-.75Zm1.5 0h.75v.75H10.5v-.75Zm1.5 0h.75v.75H12v-.75Zm1.5 0h.75v.75H13.5v-.75Zm1.5 0h.75v.75H15v-.75Zm1.5 0h.75v.75H16.5v-.75Zm-9 1.5h.75v.75H7.5v-.75Zm1.5 0h.75v.75H9v-.75Zm1.5 0h.75v.75H10.5v-.75Zm1.5 0h.75v.75H12v-.75Zm1.5 0h.75v.75H13.5v-.75Zm1.5 0h.75v.75H15v-.75Zm1.5 0h.75v.75H16.5v-.75Z',
+  'text-editor': 'M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 7.5 15Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H8.25Z M12.971 1.816A.75.75 0 0 1 14.25 2.25v3.75a.376.376 0 0 0 .375.375H18a.75.75 0 0 1 .578 1.235l-1.5 1.5a.75.75 0 0 1-1.042.018l-.013-.012-3.75-3.75a.75.75 0 0 1-.301-.592V2.25a.75.75 0 0 1 .75-.75 .75.75 0 0 1 .25.316Z',
+  'file-browser': 'M19.5 21a3 3 0 0 0 3-3v-4.5a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3V18a3 3 0 0 0 3 3h15ZM1.5 10.146V6a3 3 0 0 1 3-3h5.379a2.25 2.25 0 0 1 1.59.659l2.122 2.121c.14.141.331.22.53.22H19.5a3 3 0 0 1 3 3v1.146A4.483 4.483 0 0 0 19.5 9h-15a4.483 4.483 0 0 0-3 1.146Z',
+  terminal: 'M5.25 3.75a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3V6.75a3 3 0 0 0-3-3H5.25ZM6.75 7.5a.75.75 0 0 0 0 1.5h.75v6a.75.75 0 0 0 1.5 0v-6h.75a.75.75 0 0 0 0-1.5h-3Zm7.5 0a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z',
+  settings: 'M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+  browser: 'M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418',
+  'todo-list': 'M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z',
+  ai: 'M12.01 2.019c-5.495 0-9.991 4.496-9.991 9.991 0 5.494 4.496 9.99 9.991 9.99 5.494 0 9.99-4.496 9.99-9.99 0-5.495-4.446-9.991-9.99-9.991zm.38 3.597a3.3 3.3 0 0 1 3.298 3.298c0 1.826-1.472 3.298-3.298 3.298-.355 0-.71-.05-1.027-.152L9.3 13.128a3.286 3.286 0 0 1-3.286-3.286 3.3 3.3 0 0 1 3.298-3.298c.344 0 .644.05.984.152l1.067-1.066c.304-.102.664-.152 1.028-.152zm-5.96 10.386 2.115-2.114a4.87 4.87 0 0 0 1.38.203c.313 0 .67-.05.984-.102l2.116 2.113a8.332 8.332 0 0 1-3.098.593c-1.218 0-2.436-.203-3.497-.693zm10.335-1.42-2.114-2.115c.152-.406.203-.813.203-1.218 0-.508-.102-.914-.203-1.32l2.113-2.114c.996 1.066 1.624 2.487 1.624 4.04-.102 1.015-.628 1.927-1.624 2.725z'
+};
 
 // Taskbar state
 let taskbarElement = null;
@@ -201,20 +195,18 @@ function createTaskbarElement() {
  * Initialize the icon map with Heroicons for different app types
  */
 function initIconMap() {
-  // Map app IDs to Heroicons
-  iconMap.set('calculator', CalculatorIcon);
-  iconMap.set('text-editor', DocumentTextIcon);
-  iconMap.set('browser', GlobeAltIcon);
-  iconMap.set('todo-list', ClipboardDocumentCheckIcon);
-  iconMap.set('file-browser', FolderIcon);
-  iconMap.set('settings', Cog6ToothIcon);
-  iconMap.set('terminal', CommandLineIcon);
-  iconMap.set('calendar', CalendarIcon);
-  iconMap.set('mail', EnvelopeIcon);
-  iconMap.set('photos', PhotoIcon);
-  iconMap.set('music', MusicalNoteIcon);
-  iconMap.set('chat', ChatBubbleLeftRightIcon);
-  iconMap.set('ai', SparklesIcon);
+  // Map app IDs to Heroicons SVG paths
+  Object.keys(ICON_PATHS).forEach(key => {
+    iconMap.set(key, ICON_PATHS[key]);
+  });
+  
+  // Add any missing icons with defaults
+  if (!iconMap.has('calendar')) iconMap.set('calendar', ICON_PATHS['calculator']);
+  if (!iconMap.has('mail')) iconMap.set('mail', ICON_PATHS['calculator']);
+  if (!iconMap.has('photos')) iconMap.set('photos', ICON_PATHS['calculator']);
+  if (!iconMap.has('music')) iconMap.set('music', ICON_PATHS['calculator']);
+  if (!iconMap.has('chat')) iconMap.set('chat', ICON_PATHS['calculator']);
+  if (!iconMap.has('ai')) iconMap.set('ai', ICON_PATHS['ai']);
 }
 
 /**
@@ -292,15 +284,9 @@ function addApp(app, window) {
   
   // Use Heroicon if available in the map, otherwise use provided icon or fallback
   if (iconMap.has(app.id)) {
-    // Use Heroicon from map
-    const Icon = iconMap.get(app.id);
-    // Create SVG element manually since we're not using React
-    const svgString = Icon({
-      width: 24,
-      height: 24,
-      className: 'taskbar-icon'
-    }).props.children;
-    iconEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${svgString}</svg>`;
+    // Use Heroicon SVG path from map
+    const iconPath = iconMap.get(app.id);
+    iconEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="${iconPath}"></path></svg>`;
     iconEl.style.color = 'var(--color-text-primary)';
   } else if (app.icon) {
     // Use provided icon
@@ -312,8 +298,9 @@ function addApp(app, window) {
     imgEl.style.borderRadius = '8px';
     iconEl.appendChild(imgEl);
   } else {
-    // Use default Heroicon as fallback
-    iconEl.innerHTML = Heroicons.SquaresPlusIcon;
+    // Use default icon as fallback
+    const defaultPath = ICON_PATHS.calculator || 'M6.75 4.5A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75Z';
+    iconEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="${defaultPath}"></path></svg>`;
     iconEl.style.color = 'var(--color-text-primary)';
   }
   

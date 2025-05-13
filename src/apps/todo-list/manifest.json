@@ -1,0 +1,23 @@
+{
+  "id": "todo-list",
+  "title": "Todo List",
+  "description": "Manage your tasks and to-do items",
+  "version": "1.0.0",
+  "author": "Kosmo OS",
+  "icon": null,
+  "permissions": [
+    "fs.read",
+    "fs.write"
+  ],
+  "main": "app.js",
+  "singleton": true,
+  "categories": ["productivity", "organization"],
+  "keywords": ["todo", "tasks", "list", "productivity"],
+  "window": {
+    "width": 400,
+    "height": 600,
+    "minWidth": 300,
+    "minHeight": 400,
+    "resizable": true
+  }
+}

@@ -1,6 +1,6 @@
 # Kosmo OS UI Kit
 
-A cross-platform, AI-first operating system GUI framework that can be used across devices, contexts, and operating systems (desktop, mobile, watch, etc). The framework is designed to be AI-first, allowing AI to access all aspects of the OS front-end and back-end.
+A cross-platform, AI-first operating system GUI framework built with vanilla JavaScript that can be used across devices, contexts, and operating systems (desktop, mobile, watch, etc). The framework is designed to be AI-first, allowing AI to access all aspects of the OS front-end and back-end.
 
 ## Project Overview
 

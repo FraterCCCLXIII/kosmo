@@ -4,7 +4,7 @@
   "description": "A simple calculator application",
   "version": "1.0.0",
   "author": "AI-First OS",
-  "icon": "/src/apps/calculator/icon.png",
+  "icon": null,
   "main": "app.js",
   "singleton": true,
   "permissions": [],

@@ -53,18 +53,13 @@ async function createAiPanelElement() {
   const { getWindowManager } = await import('../ui/WindowManager.js');
   const windowManager = await getWindowManager();
   
-  // Import Heroicons
-  const { SparklesIcon } = await import('@heroicons/react/24/solid');
-  
-  // Create SVG string from SparklesIcon
-  const svgString = SparklesIcon({
-    width: 24,
-    height: 24,
-    className: 'ai-icon'
-  }).props.children;
+  // Define AI icon SVG path
+  const AI_ICON_PATH = 'M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM6.5 12a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0ZM1.615 16.428a1.224 1.224 0 0 1-.569-1.175 6.002 6.002 0 0 1 11.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 0 1 6 18a9.953 9.953 0 0 1-4.385-1.572ZM16.25 5.75a.75.75 0 0 0-1.5 0v2h-2a.75.75 0 0 0 0 1.5h2v2a.75.75 0 0 0 1.5 0v-2h2a.75.75 0 0 0 0-1.5h-2v-2Z';
   
   // Create a data URL for the icon
-  const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${svgString}</svg>`;
+  const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+    <path d="${AI_ICON_PATH}" />
+  </svg>`;
   const iconDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(iconSvg)}`;
   
   // Create window for AI panel
