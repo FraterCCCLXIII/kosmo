@@ -290,25 +290,30 @@ function initUIComponentsApp(container) {
 export async function launch() {
   console.log('Launching UI Components app...');
   
-  // Get window manager
-  const windowManager = await getWindowManager();
-  
-  // Create window
-  const window = windowManager.createWindow({
-    title: 'UI Components',
-    width: 800,
-    height: 600,
-    x: 100,
-    y: 100,
-    resizable: true,
-    maximizable: true,
-    minimizable: true,
-    closable: true
-  });
-  
-  // Initialize UI Components app in window content
-  console.log('Window content element:', window.getContentElement());
   try {
+    // Get window manager
+    console.log('Getting window manager...');
+    const windowManager = await getWindowManager();
+    console.log('Window manager obtained:', windowManager);
+    
+    // Create window
+    console.log('Creating window...');
+    const window = windowManager.createWindow({
+      title: 'UI Components',
+      width: 800,
+      height: 600,
+      x: 100,
+      y: 100,
+      resizable: true,
+      maximizable: true,
+      minimizable: true,
+      closable: true
+    });
+    console.log('Window created:', window);
+    
+    // Initialize UI Components app in window content
+    console.log('Window content element:', window.getContentElement());
+    
     // Make sure the content element has proper styling
     const contentEl = window.getContentElement();
     contentEl.style.display = 'flex';
@@ -319,20 +324,29 @@ export async function launch() {
     contentEl.style.backgroundColor = '#f5f5f5';
     
     // Add a small delay to ensure the window is fully rendered
+    console.log('Setting timeout to initialize app...');
     setTimeout(() => {
-      initUIComponentsApp(contentEl);
-      console.log('UI Components app initialized successfully');
-    }, 100);
+      console.log('Timeout fired, initializing UI Components app...');
+      try {
+        initUIComponentsApp(contentEl);
+        console.log('UI Components app initialized successfully');
+      } catch (innerError) {
+        console.error('Error in delayed initialization:', innerError);
+        contentEl.innerHTML = `
+          <div style="padding: 20px; color: red;">
+            <h3>Error initializing UI Components app (delayed)</h3>
+            <p>${innerError.message}</p>
+            <pre>${innerError.stack}</pre>
+          </div>
+        `;
+      }
+    }, 300); // Increased delay
+    
+    console.log('Returning window object...');
+    return window;
   } catch (error) {
-    console.error('Error initializing UI Components app:', error);
-    window.getContentElement().innerHTML = `
-      <div style="padding: 20px; color: red;">
-        <h3>Error initializing UI Components app</h3>
-        <p>${error.message}</p>
-        <pre>${error.stack}</pre>
-      </div>
-    `;
+    console.error('Error in UI Components app launch:', error);
+    alert('Failed to launch UI Components app: ' + error.message);
+    throw error;
   }
-  
-  return window;
 }
