@@ -113,37 +113,60 @@ function createComponentCard(componentInfo, container) {
   const examplesContainer = document.createElement('div');
   examplesContainer.style.display = 'flex';
   examplesContainer.style.flexDirection = 'column';
-  examplesContainer.style.gap = '8px';
+  examplesContainer.style.gap = '12px';
   
   // Add examples
   examples.forEach((example, index) => {
     const exampleContainer = document.createElement('div');
-    exampleContainer.style.padding = '8px';
+    exampleContainer.style.padding = '12px';
     exampleContainer.style.backgroundColor = '#f9f9f9';
     exampleContainer.style.borderRadius = '4px';
+    exampleContainer.style.minHeight = '40px';
+    exampleContainer.style.display = 'flex';
+    exampleContainer.style.alignItems = 'center';
+    
+    // Add example label
+    const exampleLabel = document.createElement('div');
+    exampleLabel.style.fontSize = '12px';
+    exampleLabel.style.color = '#666';
+    exampleLabel.style.marginBottom = '4px';
+    exampleLabel.textContent = `Example ${index + 1}:`;
+    exampleContainer.appendChild(exampleLabel);
+    
+    // Create component wrapper
+    const componentWrapper = document.createElement('div');
+    componentWrapper.style.marginLeft = '12px';
+    componentWrapper.style.flexGrow = '1';
     
     try {
+      console.log(`Creating ${name} example ${index + 1}`, example.props);
+      
       // Create component instance
       const componentInstance = component(example.props);
       
       // If the component returns an HTML element, append it
       if (componentInstance instanceof HTMLElement) {
-        exampleContainer.appendChild(componentInstance);
+        componentWrapper.appendChild(componentInstance);
       } 
       // If the component returns a string, set it as innerHTML
       else if (typeof componentInstance === 'string') {
-        exampleContainer.innerHTML = componentInstance;
+        componentWrapper.innerHTML = componentInstance;
       }
       // If the component is a function that needs to be called with a container
       else if (typeof componentInstance === 'function') {
-        componentInstance(exampleContainer);
+        componentInstance(componentWrapper);
       }
     } catch (error) {
       console.error(`Error rendering ${name} example ${index}:`, error);
-      exampleContainer.textContent = `Error: ${error.message}`;
-      exampleContainer.style.color = 'red';
+      componentWrapper.innerHTML = `
+        <div style="color: red; padding: 8px; border: 1px solid #ffcccc; background-color: #fff5f5; border-radius: 4px;">
+          <strong>Error:</strong> ${error.message}
+          <pre style="margin-top: 8px; font-size: 12px; overflow: auto;">${error.stack}</pre>
+        </div>
+      `;
     }
     
+    exampleContainer.appendChild(componentWrapper);
     examplesContainer.appendChild(exampleContainer);
   });
   
@@ -158,22 +181,43 @@ function createComponentCard(componentInfo, container) {
 function initUIComponentsApp(container) {
   // Create app container
   const appContainer = document.createElement('div');
-  appContainer.style.padding = '20px';
+  appContainer.style.padding = '24px';
   appContainer.style.height = '100%';
+  appContainer.style.width = '100%';
   appContainer.style.overflow = 'auto';
+  appContainer.style.boxSizing = 'border-box';
+  
+  // Create header
+  const header = document.createElement('div');
+  header.style.marginBottom = '24px';
+  header.style.borderBottom = '1px solid #e2e8f0';
+  header.style.paddingBottom = '16px';
   
   // Create title
   const title = document.createElement('h2');
   title.textContent = 'UI Components Showcase';
-  title.style.marginBottom = '20px';
-  title.style.color = '#333';
-  appContainer.appendChild(title);
+  title.style.margin = '0 0 8px 0';
+  title.style.color = '#2d3748';
+  title.style.fontSize = '24px';
+  title.style.fontWeight = '600';
+  header.appendChild(title);
+  
+  // Create description
+  const description = document.createElement('p');
+  description.textContent = 'This app showcases all available UI components from the Kosmo OS UI Kit.';
+  description.style.margin = '0';
+  description.style.color = '#718096';
+  description.style.fontSize = '16px';
+  header.appendChild(description);
+  
+  appContainer.appendChild(header);
   
   // Create components grid
   const componentsGrid = document.createElement('div');
   componentsGrid.style.display = 'grid';
-  componentsGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
-  componentsGrid.style.gap = '20px';
+  componentsGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(350px, 1fr))';
+  componentsGrid.style.gap = '24px';
+  componentsGrid.style.marginBottom = '32px';
   
   // Add component cards to grid
   components.forEach(componentInfo => {
@@ -181,7 +225,21 @@ function initUIComponentsApp(container) {
   });
   
   appContainer.appendChild(componentsGrid);
+  
+  // Create footer
+  const footer = document.createElement('div');
+  footer.style.marginTop = '32px';
+  footer.style.borderTop = '1px solid #e2e8f0';
+  footer.style.paddingTop = '16px';
+  footer.style.color = '#718096';
+  footer.style.fontSize = '14px';
+  footer.style.textAlign = 'center';
+  footer.textContent = 'Kosmo OS UI Kit - Component Showcase';
+  
+  appContainer.appendChild(footer);
   container.appendChild(appContainer);
+  
+  console.log('UI Components app container added to DOM');
 }
 
 /**
@@ -216,9 +274,13 @@ export async function launch() {
     contentEl.style.width = '100%';
     contentEl.style.height = '100%';
     contentEl.style.overflow = 'hidden';
+    contentEl.style.backgroundColor = '#f8f9fa';
     
-    initUIComponentsApp(contentEl);
-    console.log('UI Components app initialized successfully');
+    // Add a small delay to ensure the window is fully rendered
+    setTimeout(() => {
+      initUIComponentsApp(contentEl);
+      console.log('UI Components app initialized successfully');
+    }, 100);
   } catch (error) {
     console.error('Error initializing UI Components app:', error);
     window.getContentElement().innerHTML = `
