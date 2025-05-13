@@ -284,19 +284,28 @@ function createWindowButton(name, symbol) {
   const button = document.createElement('button');
   button.className = `os-window-button os-window-${name}`;
   button.setAttribute('aria-label', name);
-  button.textContent = symbol;
-  button.style.width = '16px';
-  button.style.height = '16px';
+  button.style.width = '24px';
+  button.style.height = '24px';
   button.style.display = 'flex';
   button.style.alignItems = 'center';
   button.style.justifyContent = 'center';
   button.style.border = 'none';
-  button.style.borderRadius = '50%';
+  button.style.borderRadius = '4px';
   button.style.backgroundColor = 'var(--color-bg-tertiary)';
   button.style.color = 'var(--color-text-primary)';
   button.style.fontSize = '14px';
   button.style.lineHeight = '1';
   button.style.cursor = 'pointer';
+  
+  // Use Heroicons
+  if (name === 'minimize') {
+    button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>`;
+  } else if (name === 'maximize') {
+    button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>`;
+  } else if (name === 'close') {
+    button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+  }
+  
   return button;
 }
 
@@ -600,6 +609,11 @@ function minimizeWindow(windowId) {
       activeWindowId = null;
     }
   }
+  
+  // Notify taskbar of minimized window
+  window.dispatchEvent(new CustomEvent('window-minimized', { 
+    detail: { windowId }
+  }));
 }
 
 /**
@@ -629,6 +643,12 @@ function restoreWindow(windowId) {
     windowData.element.style.top = `${originalSize.y}px`;
     windowData.element.style.borderRadius = 'var(--border-radius-md)';
     
+    // Update maximize button icon back to maximize
+    const maximizeButton = windowData.element.querySelector('.os-window-maximize');
+    if (maximizeButton) {
+      maximizeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>`;
+    }
+    
     windowData.state.isMaximized = false;
     
     // Call onResize callback if provided
@@ -645,29 +665,39 @@ function restoreWindow(windowId) {
 function maximizeWindow(windowId) {
   // Get window data
   const windowData = windows.get(windowId);
-  if (!windowData || windowData.state.isMaximized) return;
+  if (!windowData) return;
+  
+  // If already maximized, restore instead
+  if (windowData.state.isMaximized) {
+    restoreWindow(windowId);
+    return;
+  }
   
   // Save original size and position
-  if (!windowData.state.isMaximized) {
-    windowData.state.originalSize = {
-      width: parseInt(windowData.element.style.width, 10),
-      height: parseInt(windowData.element.style.height, 10),
-      x: parseInt(windowData.element.style.left, 10),
-      y: parseInt(windowData.element.style.top, 10),
-    };
-  }
+  windowData.state.originalSize = {
+    width: parseInt(windowData.element.style.width, 10),
+    height: parseInt(windowData.element.style.height, 10),
+    x: parseInt(windowData.element.style.left, 10),
+    y: parseInt(windowData.element.style.top, 10),
+  };
   
   // Get container dimensions
   const container = document.getElementById('app-root');
   const containerWidth = container.clientWidth;
-  const containerHeight = container.clientHeight;
+  const containerHeight = container.clientHeight - 60; // Account for top nav
   
   // Maximize window
   windowData.element.style.width = `${containerWidth}px`;
   windowData.element.style.height = `${containerHeight}px`;
   windowData.element.style.left = '0';
-  windowData.element.style.top = '0';
+  windowData.element.style.top = '40px'; // Below top nav
   windowData.element.style.borderRadius = '0';
+  
+  // Update maximize button icon to use restore icon
+  const maximizeButton = windowData.element.querySelector('.os-window-maximize');
+  if (maximizeButton) {
+    maximizeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="10" height="10" rx="1" ry="1"/><rect x="11" y="11" width="10" height="10" rx="1" ry="1"/></svg>`;
+  }
   
   // Update state
   windowData.state.isMaximized = true;

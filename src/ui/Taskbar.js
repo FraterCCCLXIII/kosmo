@@ -23,6 +23,7 @@ export async function initTaskbar() {
     removeApp,
     updateApp,
     getRunningApps,
+    highlightTaskbarItem,
   };
 }
 
@@ -110,22 +111,48 @@ function createTaskbarElement() {
   systemTray.style.gap = 'var(--spacing-md)';
   systemTray.style.marginLeft = 'auto';
   
-  // Add clock
-  const clock = document.createElement('div');
-  clock.className = 'taskbar-clock';
-  clock.style.fontSize = 'var(--font-size-sm)';
-  clock.style.fontWeight = 'var(--font-weight-medium)';
-  clock.style.color = 'var(--color-text-primary)';
-  systemTray.appendChild(clock);
+  // Add AI button
+  const aiButton = document.createElement('button');
+  aiButton.className = 'taskbar-ai-button';
+  aiButton.setAttribute('aria-label', 'AI Assistant');
+  aiButton.style.display = 'flex';
+  aiButton.style.alignItems = 'center';
+  aiButton.style.justifyContent = 'center';
+  aiButton.style.width = '36px';
+  aiButton.style.height = '36px';
+  aiButton.style.borderRadius = 'var(--border-radius-md)';
+  aiButton.style.border = 'none';
+  aiButton.style.backgroundColor = 'var(--color-accent)';
+  aiButton.style.color = 'white';
+  aiButton.style.cursor = 'pointer';
+  aiButton.style.transition = 'background-color var(--transition-fast)';
   
-  // Update clock
-  function updateClock() {
-    const now = new Date();
-    clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  }
+  // Add AI icon (Heroicons)
+  aiButton.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"></path>
+      <circle cx="7.5" cy="14.5" r="1.5"></circle>
+      <circle cx="16.5" cy="14.5" r="1.5"></circle>
+    </svg>
+  `;
   
-  updateClock();
-  setInterval(updateClock, 60000);
+  // Add hover effect
+  aiButton.addEventListener('mouseenter', () => {
+    aiButton.style.backgroundColor = 'var(--color-accent-light)';
+  });
+  
+  aiButton.addEventListener('mouseleave', () => {
+    aiButton.style.backgroundColor = 'var(--color-accent)';
+  });
+  
+  // Add click handler to open AI panel
+  aiButton.addEventListener('click', async () => {
+    const { initAiPanel } = await import('../ai/AiPanel.js');
+    const aiPanel = await initAiPanel();
+    aiPanel.togglePanel(true);
+  });
+  
+  systemTray.appendChild(aiButton);
   
   taskbarElement.appendChild(systemTray);
   
@@ -135,6 +162,12 @@ function createTaskbarElement() {
   // Adjust app-root padding to account for taskbar
   const appRoot = document.getElementById('app-root');
   appRoot.style.paddingBottom = 'var(--taskbar-height)';
+  
+  // Listen for window minimized events
+  window.addEventListener('window-minimized', (e) => {
+    const { windowId } = e.detail;
+    highlightTaskbarItem(windowId);
+  });
 }
 
 /**
@@ -151,6 +184,15 @@ function addApp(app, window) {
   const appsContainer = taskbarElement.querySelector('.taskbar-apps');
   if (!appsContainer) return null;
   
+  // Check if app is already in taskbar
+  const existingItem = Array.from(appsContainer.children).find(
+    item => item.dataset.windowId === window.id
+  );
+  
+  if (existingItem) {
+    return existingItem;
+  }
+  
   // Create taskbar item
   const itemEl = document.createElement('div');
   itemEl.className = 'taskbar-item';
@@ -163,7 +205,7 @@ function addApp(app, window) {
   itemEl.style.borderRadius = 'var(--border-radius-sm)';
   itemEl.style.backgroundColor = 'transparent';
   itemEl.style.cursor = 'pointer';
-  itemEl.style.transition = 'background-color var(--transition-fast)';
+  itemEl.style.transition = 'all var(--transition-fast)';
   itemEl.style.borderBottom = '2px solid transparent';
   
   // Add hover effect
@@ -172,7 +214,9 @@ function addApp(app, window) {
   });
   
   itemEl.addEventListener('mouseleave', () => {
-    itemEl.style.backgroundColor = 'transparent';
+    if (!window.isMinimized()) {
+      itemEl.style.backgroundColor = 'transparent';
+    }
   });
   
   // Add click handler
@@ -332,6 +376,37 @@ function updateActiveState(windowId, isActive) {
   } else {
     appData.element.style.backgroundColor = 'transparent';
     appData.element.style.borderBottom = '2px solid transparent';
+  }
+}
+
+/**
+ * Highlight a taskbar item for a minimized window
+ * @param {string} windowId - Window ID
+ */
+function highlightTaskbarItem(windowId) {
+  // Check if app is in running apps
+  if (!runningApps.has(windowId)) {
+    return;
+  }
+  
+  // Get app data
+  const appData = runningApps.get(windowId);
+  
+  // Add pulsing effect
+  appData.element.style.backgroundColor = 'var(--color-bg-tertiary)';
+  appData.element.style.animation = 'taskbar-item-pulse 2s infinite';
+  
+  // Add animation keyframes if not already added
+  if (!document.getElementById('taskbar-item-pulse-animation')) {
+    const styleEl = document.createElement('style');
+    styleEl.id = 'taskbar-item-pulse-animation';
+    styleEl.textContent = `
+      @keyframes taskbar-item-pulse {
+        0%, 100% { background-color: var(--color-bg-tertiary); }
+        50% { background-color: var(--color-accent-light); }
+      }
+    `;
+    document.head.appendChild(styleEl);
   }
 }
 

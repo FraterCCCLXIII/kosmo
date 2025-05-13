@@ -29,6 +29,7 @@
     "vitest": "^1.1.0"
   },
   "dependencies": {
+    "heroicons": "^2.2.0",
     "marked": "^11.1.1"
   }
 }

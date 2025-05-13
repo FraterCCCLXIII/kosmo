@@ -8,6 +8,7 @@ import { initTheme } from './ui/ThemeManager.js';
 import { initWindowManager } from './ui/WindowManager.js';
 import { initAppLauncher } from './ui/AppLauncher.js';
 import { initTaskbar } from './ui/Taskbar.js';
+import { initTopNav } from './ui/TopNav.js';
 import { initVirtualFS } from './fs/VirtualFS.js';
 import { initSessionManager } from './persistence/SessionManager.js';
 import { initAiPanel } from './ai/AiPanel.js';
@@ -43,9 +44,12 @@ async function initOS() {
     const windowManager = await initWindowManager();
     const router = await initRouter();
     
+    // Initialize navigation components
+    await initTopNav();
+    await initTaskbar();
+    
     // Initialize app management
     await initAppLauncher(config.apps);
-    await initTaskbar();
     
     // Initialize Git integration if enabled
     if (config.features.gitIntegration) {
