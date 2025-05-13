@@ -1,0 +1,14 @@
+{
+  "id": "terminal",
+  "title": "Terminal",
+  "description": "Command-line interface for the system",
+  "version": "1.0.0",
+  "author": "Kosmo OS",
+  "icon": null,
+  "permissions": [
+    "fs.read",
+    "fs.write",
+    "fs.execute"
+  ],
+  "main": "app.js"
+}

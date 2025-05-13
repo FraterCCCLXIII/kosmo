@@ -1,0 +1,14 @@
+{
+  "id": "file-browser",
+  "title": "Files",
+  "description": "Browse and manage files in the virtual file system",
+  "version": "1.0.0",
+  "author": "Kosmo OS",
+  "icon": null,
+  "permissions": [
+    "fs.read",
+    "fs.write",
+    "fs.delete"
+  ],
+  "main": "app.js"
+}
