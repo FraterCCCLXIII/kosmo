@@ -46,7 +46,14 @@ export async function launch() {
   const i18n = getI18n();
   
   // Initialize settings in window content
-  await init({ container: window.content, themeManager, i18n });
+  console.log('Window content element:', window.getContentElement());
+  try {
+    await init({ container: window.getContentElement(), themeManager, i18n });
+    console.log('Settings app initialized successfully');
+  } catch (error) {
+    console.error('Error initializing settings app:', error);
+    window.getContentElement().innerHTML = `<div style="padding: 20px; color: red;">Error initializing settings app: ${error.message}</div>`;
+  }
   
   return window;
 }

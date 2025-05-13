@@ -34,7 +34,14 @@ export async function launch() {
   });
   
   // Initialize text editor in window content
-  initTextEditor(window.content);
+  console.log('Window content element:', window.getContentElement());
+  try {
+    initTextEditor(window.getContentElement());
+    console.log('Text editor initialized successfully');
+  } catch (error) {
+    console.error('Error initializing text editor:', error);
+    window.getContentElement().innerHTML = `<div style="padding: 20px; color: red;">Error initializing text editor: ${error.message}</div>`;
+  }
   
   return window;
 }

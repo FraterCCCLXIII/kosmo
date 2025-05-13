@@ -38,11 +38,17 @@ export async function launch() {
   });
   
   // Create photos UI
-  createPhotosUI(window.content);
+  console.log('Window content element:', window.getContentElement());
+  try {
+    createPhotosUI(window.getContentElement());
+    console.log('Photos app initialized successfully');
+  } catch (error) {
+    console.error('Error initializing photos app:', error);
+    window.getContentElement().innerHTML = `<div style="padding: 20px; color: red;">Error initializing photos app: ${error.message}</div>`;
+  }
   
   // Return window instance
   return window;
-}
 }
 
 /**

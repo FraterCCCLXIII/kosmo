@@ -39,7 +39,14 @@ export async function launch() {
   const fs = getVirtualFS();
   
   // Initialize terminal in window content
-  await init({ container: window.content, fs });
+  console.log('Window content element:', window.getContentElement());
+  try {
+    await init({ container: window.getContentElement(), fs });
+    console.log('Terminal app initialized successfully');
+  } catch (error) {
+    console.error('Error initializing terminal app:', error);
+    window.getContentElement().innerHTML = `<div style="padding: 20px; color: red;">Error initializing terminal app: ${error.message}</div>`;
+  }
   
   return window;
 }

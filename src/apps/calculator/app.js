@@ -35,7 +35,14 @@ export async function launch() {
   });
   
   // Initialize calculator in window content
-  initCalculator(window.content);
+  console.log('Window content element:', window.getContentElement());
+  try {
+    initCalculator(window.getContentElement());
+    console.log('Calculator initialized successfully');
+  } catch (error) {
+    console.error('Error initializing calculator:', error);
+    window.getContentElement().innerHTML = `<div style="padding: 20px; color: red;">Error initializing calculator: ${error.message}</div>`;
+  }
   
   return window;
 }

@@ -40,10 +40,17 @@ export async function launch() {
   });
   
   // Get virtual file system
-  const fs = getVirtualFS();
+  const fs = await getVirtualFS();
   
   // Initialize file browser in window content
-  await init({ container: window.content, fs });
+  console.log('Window content element:', window.getContentElement());
+  try {
+    await init({ container: window.getContentElement(), fs });
+    console.log('File browser initialized successfully');
+  } catch (error) {
+    console.error('Error initializing file browser:', error);
+    window.getContentElement().innerHTML = `<div style="padding: 20px; color: red;">Error initializing file browser: ${error.message}</div>`;
+  }
   
   return window;
 }

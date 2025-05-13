@@ -37,7 +37,14 @@ export async function launch() {
   });
   
   // Create browser UI
-  createBrowserUI(window.content);
+  console.log('Window content element:', window.getContentElement());
+  try {
+    createBrowserUI(window.getContentElement());
+    console.log('Browser app initialized successfully');
+  } catch (error) {
+    console.error('Error initializing browser app:', error);
+    window.getContentElement().innerHTML = `<div style="padding: 20px; color: red;">Error initializing browser app: ${error.message}</div>`;
+  }
   
   // Return window instance
   return window;

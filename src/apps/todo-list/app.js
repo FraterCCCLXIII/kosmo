@@ -2,7 +2,50 @@
  * Todo List App
  */
 
-export default function initTodoListApp(container, windowManager) {
+import { getWindowManager } from '../../ui/WindowManager.js';
+
+// Define icon SVG paths
+const ICONS = {
+  todoList: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.625 6.75a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0A.75.75 0 0 1 8.25 6h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75ZM2.625 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 12a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12A.75.75 0 0 1 7.5 12Zm-4.875 5.25a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" /></svg>'
+};
+
+/**
+ * Launch the todo list app
+ * @returns {Promise<Object>} Window instance
+ */
+export async function launch() {
+  console.log('Launching todo list app...');
+  
+  // Get window manager instance
+  const windowManager = await getWindowManager();
+  
+  // Create window
+  const window = windowManager.createWindow({
+    title: 'Todo List',
+    width: 400,
+    height: 600,
+    minWidth: 300,
+    minHeight: 400,
+    resizable: true,
+    maximizable: true,
+    minimizable: true,
+    closable: true,
+  });
+  
+  // Initialize todo list in window content
+  console.log('Window content element:', window.getContentElement());
+  try {
+    initTodoListApp(window.getContentElement());
+    console.log('Todo list app initialized successfully');
+  } catch (error) {
+    console.error('Error initializing todo list app:', error);
+    window.getContentElement().innerHTML = `<div style="padding: 20px; color: red;">Error initializing todo list app: ${error.message}</div>`;
+  }
+  
+  return window;
+}
+
+function initTodoListApp(container) {
   console.log('Initializing Todo List app');
   
   // Create app container

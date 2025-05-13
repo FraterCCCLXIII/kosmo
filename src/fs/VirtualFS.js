@@ -17,12 +17,20 @@ let fileSystem = {
 // Current working directory path
 let currentPath = '/';
 
+// Singleton instance
+let virtualFSInstance = null;
+
 /**
  * Initialize the virtual file system
  * @returns {Object} Virtual file system API
  */
 export async function initVirtualFS() {
   console.log('Initializing virtual file system...');
+  
+  // Return existing instance if already initialized
+  if (virtualFSInstance) {
+    return virtualFSInstance;
+  }
   
   // Try to load saved file system from localStorage
   try {
@@ -43,8 +51,8 @@ export async function initVirtualFS() {
   // Set up periodic saving
   setInterval(saveFileSystem, 30000);
   
-  // Return public API
-  return {
+  // Create API
+  virtualFSInstance = {
     listDirectory,
     createDirectory,
     createFile,
@@ -64,6 +72,21 @@ export async function initVirtualFS() {
     isFile,
     searchFiles,
   };
+  
+  // Return public API
+  return virtualFSInstance;
+}
+
+/**
+ * Get the virtual file system instance
+ * @returns {Object} Virtual file system API
+ */
+export async function getVirtualFS() {
+  // Initialize if not already initialized
+  if (!virtualFSInstance) {
+    return initVirtualFS();
+  }
+  return virtualFSInstance;
 }
 
 /**
