@@ -1,0 +1,10 @@
+{
+  "name": "maps",
+  "displayName": "Maps & GPS",
+  "description": "Navigation, location, and routing",
+  "version": "0.1.0",
+  "category": "Connectivity & Communication",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

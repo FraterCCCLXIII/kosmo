@@ -1,0 +1,10 @@
+{
+  "name": "app-store",
+  "displayName": "App Store",
+  "description": "Install and update apps",
+  "version": "0.1.0",
+  "category": "Core System",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

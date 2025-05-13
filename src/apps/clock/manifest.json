@@ -1,0 +1,10 @@
+{
+  "name": "clock",
+  "displayName": "Clock",
+  "description": "Alarms, world clock, timers, and stopwatch",
+  "version": "0.1.0",
+  "category": "Core System",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

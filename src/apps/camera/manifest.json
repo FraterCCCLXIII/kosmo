@@ -1,7 +1,7 @@
 {
-  "name": "photos",
-  "displayName": "Photos",
-  "description": "View and organize your images",
+  "name": "camera",
+  "displayName": "Camera",
+  "description": "Capture photos and videos",
   "version": "0.1.0",
   "category": "Media & Creative",
   "icon": "icon.png",

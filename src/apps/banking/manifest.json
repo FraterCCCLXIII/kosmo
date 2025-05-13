@@ -1,0 +1,10 @@
+{
+  "name": "banking",
+  "displayName": "Banking Apps",
+  "description": "Access financial accounts and transactions",
+  "version": "0.1.0",
+  "category": "Finance & Utilities",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

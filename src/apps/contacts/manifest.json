@@ -1,0 +1,10 @@
+{
+  "name": "contacts",
+  "displayName": "Contacts",
+  "description": "Manage your contact list",
+  "version": "0.1.0",
+  "category": "Core System",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

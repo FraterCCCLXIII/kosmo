@@ -1,0 +1,10 @@
+{
+  "name": "trash-bin",
+  "displayName": "Trash Bin",
+  "description": "Manage deleted files with restore/delete options",
+  "version": "0.1.0",
+  "category": "Core System",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

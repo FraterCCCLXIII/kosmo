@@ -30,12 +30,66 @@ const defaultConfig = {
   
   // Default apps to load
   apps: [
+    // Core System Apps
     'calculator',
+    'settings',
+    'phone',
+    'messaging',
+    'contacts',
+    'clock',
+    'voice-assistant',
+    'app-store',
+    'trash-bin',
+    'app-installer',
+    
+    // Media & Creative Tools
+    'camera',
+    'photo-editor',
+    'vector-editor',
+    'ui-design',
+    'voice-memos',
+    'photos',
+    'video-player',
+    'audio-player',
+    'media-streaming',
+    'podcasts',
+    'movies-tv',
+    'books',
+    'preview',
+    'torrent-client',
+    
+    // Productivity & Office
+    'email',
+    'word-processor',
+    'spreadsheet',
+    'presentation',
+    'notes',
+    'calendar',
+    'cloud-storage',
+    'font-manager',
+    'code-editor',
+    'dictionary',
+    'kosmographica',
     'text-editor',
     'file-browser',
     'terminal',
-    'settings',
+    
+    // Connectivity & Communication
+    'maps',
+    'social-media',
+    'video-meeting',
     'browser',
+    
+    // Finance & Utilities
+    'banking',
+    'crypto-wallet',
+    
+    // Gaming
+    'game-hub',
+    
+    // Lifestyle & Info
+    'weather',
+    'news',
     'todo-list'
   ],
   

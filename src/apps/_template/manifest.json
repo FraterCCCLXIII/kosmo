@@ -1,0 +1,10 @@
+{
+  "name": "[APP_NAME]",
+  "displayName": "[APP_TITLE]",
+  "description": "[APP_DESCRIPTION]",
+  "version": "0.1.0",
+  "category": "[APP_CATEGORY]",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

@@ -1,7 +1,7 @@
 {
-  "name": "photos",
-  "displayName": "Photos",
-  "description": "View and organize your images",
+  "name": "media-streaming",
+  "displayName": "Media Streaming",
+  "description": "Stream music or video content",
   "version": "0.1.0",
   "category": "Media & Creative",
   "icon": "icon.png",

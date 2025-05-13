@@ -1,0 +1,10 @@
+{
+  "name": "voice-assistant",
+  "displayName": "Voice Assistant",
+  "description": "AI-powered voice assistant",
+  "version": "0.1.0",
+  "category": "Core System",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

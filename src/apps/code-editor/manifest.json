@@ -1,0 +1,10 @@
+{
+  "name": "code-editor",
+  "displayName": "Code Editor / IDE",
+  "description": "Programming tools",
+  "version": "0.1.0",
+  "category": "Productivity & Office",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

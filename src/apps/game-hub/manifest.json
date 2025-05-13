@@ -1,0 +1,10 @@
+{
+  "name": "game-hub",
+  "displayName": "Game Hub / Launcher",
+  "description": "Centralized access to games and game-related features",
+  "version": "0.1.0",
+  "category": "Gaming",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

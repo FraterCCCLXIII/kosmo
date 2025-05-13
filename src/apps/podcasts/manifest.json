@@ -1,7 +1,7 @@
 {
-  "name": "photos",
-  "displayName": "Photos",
-  "description": "View and organize your images",
+  "name": "podcasts",
+  "displayName": "Podcasts",
+  "description": "Subscribe and listen to podcasts",
   "version": "0.1.0",
   "category": "Media & Creative",
   "icon": "icon.png",

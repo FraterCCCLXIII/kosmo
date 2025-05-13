@@ -1,0 +1,10 @@
+{
+  "name": "weather",
+  "displayName": "Weather",
+  "description": "Forecast and real-time weather info",
+  "version": "0.1.0",
+  "category": "Lifestyle & Info",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

@@ -1,0 +1,10 @@
+{
+  "name": "social-media",
+  "displayName": "Social Media",
+  "description": "Platforms for posting and messaging",
+  "version": "0.1.0",
+  "category": "Connectivity & Communication",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

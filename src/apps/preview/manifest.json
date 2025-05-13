@@ -1,7 +1,7 @@
 {
-  "name": "photos",
-  "displayName": "Photos",
-  "description": "View and organize your images",
+  "name": "preview",
+  "displayName": "Preview",
+  "description": "Quick preview of images, PDFs, and other files",
   "version": "0.1.0",
   "category": "Media & Creative",
   "icon": "icon.png",

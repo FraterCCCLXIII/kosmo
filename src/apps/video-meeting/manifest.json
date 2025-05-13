@@ -1,0 +1,10 @@
+{
+  "name": "video-meeting",
+  "displayName": "Video Meeting",
+  "description": "Online meetings and video conferencing",
+  "version": "0.1.0",
+  "category": "Connectivity & Communication",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

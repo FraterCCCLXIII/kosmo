@@ -1,0 +1,10 @@
+{
+  "name": "crypto-wallet",
+  "displayName": "Crypto Wallet",
+  "description": "Manage digital currency and tokens",
+  "version": "0.1.0",
+  "category": "Finance & Utilities",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

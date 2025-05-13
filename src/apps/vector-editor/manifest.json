@@ -1,0 +1,10 @@
+{
+  "name": "vector-editor",
+  "displayName": "Vector Graphics Editor",
+  "description": "Create illustrations and vector graphics",
+  "version": "0.1.0",
+  "category": "Media & Creative",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

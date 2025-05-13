@@ -1,7 +1,7 @@
 {
-  "name": "photos",
-  "displayName": "Photos",
-  "description": "View and organize your images",
+  "name": "movies-tv",
+  "displayName": "Movies & TV",
+  "description": "Video streaming services",
   "version": "0.1.0",
   "category": "Media & Creative",
   "icon": "icon.png",

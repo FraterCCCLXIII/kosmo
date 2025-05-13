@@ -1,7 +1,7 @@
 {
-  "name": "photos",
-  "displayName": "Photos",
-  "description": "View and organize your images",
+  "name": "torrent-client",
+  "displayName": "Torrent Client",
+  "description": "Download media/files via P2P",
   "version": "0.1.0",
   "category": "Media & Creative",
   "icon": "icon.png",

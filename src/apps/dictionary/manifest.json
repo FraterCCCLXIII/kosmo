@@ -1,0 +1,10 @@
+{
+  "name": "dictionary",
+  "displayName": "Dictionary",
+  "description": "Look up word definitions and synonyms",
+  "version": "0.1.0",
+  "category": "Productivity & Office",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}

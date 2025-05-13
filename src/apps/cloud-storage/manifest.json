@@ -1,0 +1,10 @@
+{
+  "name": "cloud-storage",
+  "displayName": "Cloud Storage",
+  "description": "File sync and sharing",
+  "version": "0.1.0",
+  "category": "Productivity & Office",
+  "icon": "icon.png",
+  "author": "Kosmo OS Team",
+  "permissions": []
+}
