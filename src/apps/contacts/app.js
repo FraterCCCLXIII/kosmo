@@ -5,9 +5,8 @@
  */
 
 import { getWindowManager } from '../../ui/WindowManager.js';
-import ContactsApp from './ContactsApp';
-import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ContactsApp from './vanilla/ContactsApp.js';
+import './vanilla/ContactsApp.css';
 
 /**
  * Launch the contacts app
@@ -39,13 +38,8 @@ export async function launch() {
     contentEl.style.height = '100%';
     contentEl.style.overflow = 'hidden';
     
-    // Create root for React
-    const root = createRoot(contentEl);
-    
-    // Render the Contacts app
-    root.render(
-      <ContactsApp />
-    );
+    // Initialize the Contacts app with the content element
+    const contactsApp = new ContactsApp(contentEl);
     
   } catch (error) {
     console.error('Error initializing contacts app:', error);
