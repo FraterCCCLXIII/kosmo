@@ -1,0 +1,32 @@
+{
+  "id": "text-editor",
+  "title": "Text Editor",
+  "description": "A simple text editor application",
+  "version": "1.0.0",
+  "author": "AI-First OS",
+  "icon": "/src/apps/text-editor/icon.png",
+  "main": "app.js",
+  "singleton": false,
+  "permissions": ["fs.read", "fs.write"],
+  "categories": ["productivity", "development"],
+  "keywords": ["text", "editor", "document", "markdown"],
+  "window": {
+    "width": 800,
+    "height": 600,
+    "minWidth": 400,
+    "minHeight": 300,
+    "resizable": true
+  },
+  "fileAssociations": [
+    {
+      "extension": "txt",
+      "mimeType": "text/plain",
+      "description": "Text file"
+    },
+    {
+      "extension": "md",
+      "mimeType": "text/markdown",
+      "description": "Markdown file"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "calculator",
+  "title": "Calculator",
+  "description": "A simple calculator application",
+  "version": "1.0.0",
+  "author": "AI-First OS",
+  "icon": "/src/apps/calculator/icon.png",
+  "main": "app.js",
+  "singleton": true,
+  "permissions": [],
+  "categories": ["utilities", "productivity"],
+  "keywords": ["calculator", "math", "arithmetic"],
+  "window": {
+    "width": 320,
+    "height": 480,
+    "minWidth": 240,
+    "minHeight": 360,
+    "resizable": true
+  }
+}
