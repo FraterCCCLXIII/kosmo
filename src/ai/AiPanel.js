@@ -44,95 +44,63 @@ export async function initAiPanel(config = {}) {
 /**
  * Create AI panel element
  */
-function createAiPanelElement() {
+async function createAiPanelElement() {
   // Check if panel already exists
   let panelEl = document.getElementById('ai-panel');
   if (panelEl) return;
   
-  // Create modal overlay
-  const overlayEl = document.createElement('div');
-  overlayEl.id = 'ai-panel-overlay';
-  overlayEl.className = 'ai-panel-overlay';
-  overlayEl.style.position = 'fixed';
-  overlayEl.style.top = '0';
-  overlayEl.style.left = '0';
-  overlayEl.style.width = '100%';
-  overlayEl.style.height = '100%';
-  overlayEl.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-  overlayEl.style.display = 'none';
-  overlayEl.style.justifyContent = 'center';
-  overlayEl.style.alignItems = 'center';
-  overlayEl.style.zIndex = 'var(--z-index-modal)';
+  // Import WindowManager
+  const { getWindowManager } = await import('../ui/WindowManager.js');
+  const windowManager = await getWindowManager();
+  
+  // Import Heroicons
+  const { SparklesIcon } = await import('@heroicons/react/24/solid');
+  
+  // Create SVG string from SparklesIcon
+  const svgString = SparklesIcon({
+    width: 24,
+    height: 24,
+    className: 'ai-icon'
+  }).props.children;
+  
+  // Create a data URL for the icon
+  const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">${svgString}</svg>`;
+  const iconDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(iconSvg)}`;
+  
+  // Create window for AI panel
+  const aiWindow = windowManager.createWindow({
+    title: 'AI Assistant',
+    width: 600,
+    height: 500,
+    x: window.innerWidth / 2 - 300,
+    y: window.innerHeight / 2 - 250,
+    minWidth: 400,
+    minHeight: 300,
+    resizable: true,
+    maximizable: true,
+    minimizable: true,
+    closable: true,
+    icon: iconDataUrl
+  });
+  
+  // Get content element
+  const contentEl = aiWindow.getContentElement();
+  contentEl.style.display = 'flex';
+  contentEl.style.flexDirection = 'column';
+  contentEl.style.height = '100%';
+  contentEl.style.overflow = 'hidden';
   
   // Create panel container
   panelEl = document.createElement('div');
   panelEl.id = 'ai-panel';
   panelEl.className = 'ai-panel';
-  panelEl.style.width = '600px';
-  panelEl.style.height = '500px';
-  panelEl.style.backgroundColor = 'var(--color-bg-primary)';
-  panelEl.style.borderRadius = 'var(--border-radius-lg)';
-  panelEl.style.boxShadow = 'var(--shadow-lg)';
   panelEl.style.display = 'flex';
   panelEl.style.flexDirection = 'column';
+  panelEl.style.flex = '1';
   panelEl.style.overflow = 'hidden';
   
-  // Create panel header
-  const headerEl = document.createElement('div');
-  headerEl.className = 'ai-panel-header';
-  headerEl.style.padding = 'var(--spacing-sm) var(--spacing-md)';
-  headerEl.style.backgroundColor = 'var(--color-accent)';
-  headerEl.style.color = 'white';
-  headerEl.style.fontWeight = 'var(--font-weight-medium)';
-  headerEl.style.display = 'flex';
-  headerEl.style.alignItems = 'center';
-  headerEl.style.justifyContent = 'space-between';
-  headerEl.style.userSelect = 'none';
-  headerEl.style.borderTopLeftRadius = 'var(--border-radius-lg)';
-  headerEl.style.borderTopRightRadius = 'var(--border-radius-lg)';
-  
-  // Add header title with icon
-  const titleEl = document.createElement('div');
-  titleEl.style.display = 'flex';
-  titleEl.style.alignItems = 'center';
-  titleEl.style.gap = 'var(--spacing-sm)';
-  
-  // Add AI icon (Heroicons)
-  titleEl.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"></path>
-      <circle cx="7.5" cy="14.5" r="1.5"></circle>
-      <circle cx="16.5" cy="14.5" r="1.5"></circle>
-    </svg>
-    <span>AI Assistant</span>
-  `;
-  
-  headerEl.appendChild(titleEl);
-  
-  // Add close button
-  const closeEl = document.createElement('button');
-  closeEl.className = 'ai-panel-close';
-  closeEl.style.background = 'none';
-  closeEl.style.border = 'none';
-  closeEl.style.color = 'white';
-  closeEl.style.cursor = 'pointer';
-  closeEl.setAttribute('aria-label', 'Close AI panel');
-  
-  // Add close icon (Heroicons)
-  closeEl.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="18" y1="6" x2="6" y2="18"></line>
-      <line x1="6" y1="6" x2="18" y2="18"></line>
-    </svg>
-  `;
-  
-  // Add click handler to close panel
-  closeEl.addEventListener('click', () => {
-    togglePanel(false);
-  });
-  
-  headerEl.appendChild(closeEl);
-  panelEl.appendChild(headerEl);
+  // We don't need a header since the window already has one
+  // Just add the panel directly to the content element
   
   // Create messages container
   const messagesEl = document.createElement('div');
@@ -213,18 +181,11 @@ function createAiPanelElement() {
   inputContainerEl.appendChild(sendButtonEl);
   panelEl.appendChild(inputContainerEl);
   
-  // Add panel to overlay
-  overlayEl.appendChild(panelEl);
+  // Add panel to window content
+  contentEl.appendChild(panelEl);
   
-  // Add overlay to DOM
-  document.body.appendChild(overlayEl);
-  
-  // Close when clicking outside the panel
-  overlayEl.addEventListener('click', (e) => {
-    if (e.target === overlayEl) {
-      togglePanel(false);
-    }
-  });
+  // Store window reference for toggling
+  panelEl.dataset.windowId = aiWindow.id;
   
   // Add welcome message
   addMessage('ai', 'Hello! I\'m your AI assistant. How can I help you today?');
@@ -234,33 +195,51 @@ function createAiPanelElement() {
  * Toggle AI panel visibility
  * @param {boolean} [show] - Force show/hide
  */
-function togglePanel(show) {
-  const overlayEl = document.getElementById('ai-panel-overlay');
-  if (!overlayEl) return;
+async function togglePanel(show) {
+  const panelEl = document.getElementById('ai-panel');
+  if (!panelEl) return;
+  
+  // Get window ID
+  const windowId = panelEl.dataset.windowId;
+  if (!windowId) return;
+  
+  // Import WindowManager
+  const { getWindowManager } = await import('../ui/WindowManager.js');
+  const windowManager = await getWindowManager();
+  
+  // Get window
+  const aiWindow = windowManager.getWindow(windowId);
+  if (!aiWindow) return;
   
   if (show === undefined) {
     // Toggle
-    const newDisplay = overlayEl.style.display === 'none' || overlayEl.style.display === '' ? 'flex' : 'none';
-    overlayEl.style.display = newDisplay;
-    
-    // Focus input when showing
-    if (newDisplay === 'flex') {
-      setTimeout(() => {
-        const inputEl = document.querySelector('.ai-panel-input');
-        if (inputEl) inputEl.focus();
-      }, 100);
+    if (aiWindow.isMinimized()) {
+      aiWindow.restore();
+    } else if (aiWindow.isVisible()) {
+      aiWindow.minimize();
+    } else {
+      aiWindow.show();
     }
   } else {
     // Force
-    overlayEl.style.display = show ? 'flex' : 'none';
-    
-    // Focus input when showing
     if (show) {
-      setTimeout(() => {
-        const inputEl = document.querySelector('.ai-panel-input');
-        if (inputEl) inputEl.focus();
-      }, 100);
+      if (aiWindow.isMinimized()) {
+        aiWindow.restore();
+      } else {
+        aiWindow.show();
+      }
+      aiWindow.focus();
+    } else {
+      aiWindow.hide();
     }
+  }
+  
+  // Focus input when showing
+  if (show || show === undefined) {
+    setTimeout(() => {
+      const inputEl = document.querySelector('.ai-panel-input');
+      if (inputEl) inputEl.focus();
+    }, 100);
   }
 }
 
