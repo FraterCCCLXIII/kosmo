@@ -3,7 +3,7 @@
  * A simple calculator application
  */
 
-import { createWindow } from '../../ui/WindowManager.js';
+import { getWindowManager } from '../../ui/WindowManager.js';
 
 // Calculator state
 let displayValue = '0';
@@ -18,8 +18,11 @@ let waitingForSecondOperand = false;
 export async function launch() {
   console.log('Launching calculator app...');
   
+  // Get window manager instance
+  const windowManager = await getWindowManager();
+  
   // Create window
-  const window = createWindow({
+  const window = windowManager.createWindow({
     title: 'Calculator',
     width: 320,
     height: 480,

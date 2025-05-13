@@ -3,7 +3,7 @@
  * A simple photo viewer and organizer
  */
 
-import { createWindow } from '../../ui/WindowManager.js';
+import { getWindowManager } from '../../ui/WindowManager.js';
 
 // Define icon SVG paths
 const ICONS = {
@@ -22,7 +22,10 @@ export async function launch() {
   console.log('Launching photos app...');
   
   // Create window
-  const window = createWindow({
+  const windowManager = await getWindowManager();
+  
+  // Create window
+  const window = windowManager.createWindow({
     title: 'Photos',
     width: 900,
     height: 700,

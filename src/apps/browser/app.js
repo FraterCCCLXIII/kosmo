@@ -3,7 +3,7 @@
  * A simple web browser
  */
 
-import { createWindow } from '../../ui/WindowManager.js';
+import { getWindowManager } from '../../ui/WindowManager.js';
 
 // Define icon SVG paths
 const ICONS = {
@@ -22,8 +22,9 @@ const ICONS = {
 export async function launch() {
   console.log('Launching browser app...');
   
-  // Create window
-  const window = createWindow({
+  // Get window manager instance
+  const windowManager = await getWindowManager();
+  const window = windowManager.createWindow({
     title: 'Browser',
     width: 1024,
     height: 768,

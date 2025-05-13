@@ -4,7 +4,7 @@
  */
 
 // Import dependencies
-import { createWindow } from '../../ui/WindowManager.js';
+import { getWindowManager } from '../../ui/WindowManager.js';
 import { getVirtualFS } from '../../fs/VirtualFS.js';
 
 // Define icon SVG paths
@@ -20,7 +20,10 @@ export async function launch() {
   console.log('Launching terminal app...');
   
   // Create window
-  const window = createWindow({
+  const windowManager = await getWindowManager();
+  
+  // Create window
+  const window = windowManager.createWindow({
     title: 'Terminal',
     width: 800,
     height: 500,

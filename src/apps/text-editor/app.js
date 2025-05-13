@@ -3,7 +3,7 @@
  * A simple text editor application
  */
 
-import { createWindow } from '../../ui/WindowManager.js';
+import { getWindowManager } from '../../ui/WindowManager.js';
 
 // Text editor state
 let currentFile = null;
@@ -17,8 +17,11 @@ let isModified = false;
 export async function launch() {
   console.log('Launching text editor app...');
   
+  // Get window manager instance
+  const windowManager = await getWindowManager();
+  
   // Create window
-  const window = createWindow({
+  const window = windowManager.createWindow({
     title: 'Text Editor',
     width: 800,
     height: 600,

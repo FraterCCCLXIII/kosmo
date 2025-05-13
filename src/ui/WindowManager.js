@@ -33,12 +33,20 @@ const defaultWindowOptions = {
   onMove: null, // Callback when window is moved
 };
 
+// Singleton instance
+let windowManagerInstance = null;
+
 /**
  * Initialize the window manager
  * @returns {Object} Window manager API
  */
 export async function initWindowManager() {
   console.log('Initializing window manager...');
+  
+  // Return existing instance if already initialized
+  if (windowManagerInstance) {
+    return windowManagerInstance;
+  }
   
   // Create container for windows if it doesn't exist
   let windowContainer = document.getElementById('window-container');
@@ -61,8 +69,8 @@ export async function initWindowManager() {
   // Listen for keyboard events for window management
   document.addEventListener('keydown', handleGlobalKeyDown);
   
-  // Return public API
-  return {
+  // Create API
+  windowManagerInstance = {
     createWindow,
     closeWindow,
     minimizeWindow,
@@ -73,7 +81,23 @@ export async function initWindowManager() {
     getAllWindows,
     moveWindow,
     resizeWindow,
+    getWindow: (id) => windows.get(id)
   };
+  
+  // Return public API
+  return windowManagerInstance;
+}
+
+/**
+ * Get the window manager instance
+ * @returns {Object} Window manager API
+ */
+export async function getWindowManager() {
+  // Initialize if not already initialized
+  if (!windowManagerInstance) {
+    return initWindowManager();
+  }
+  return windowManagerInstance;
 }
 
 /**

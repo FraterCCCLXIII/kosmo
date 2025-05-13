@@ -4,7 +4,7 @@
  */
 
 // Import dependencies
-import { createWindow } from '../../ui/WindowManager.js';
+import { getWindowManager } from '../../ui/WindowManager.js';
 import { getThemeManager } from '../../ui/ThemeManager.js';
 import { getI18n } from '../../i18n/index.js';
 
@@ -26,7 +26,10 @@ export async function launch() {
   console.log('Launching settings app...');
   
   // Create window
-  const window = createWindow({
+  const windowManager = await getWindowManager();
+  
+  // Create window
+  const window = windowManager.createWindow({
     title: 'Settings',
     width: 800,
     height: 600,
