@@ -1,0 +1,18 @@
+{
+  "name": "Photos",
+  "description": "View and organize photos",
+  "version": "1.0.0",
+  "icon": "photos.svg",
+  "main": "app.js",
+  "permissions": ["filesystem", "media"],
+  "categories": ["media", "utility"],
+  "author": "Kosmo OS Team",
+  "defaultSize": {
+    "width": 900,
+    "height": 700
+  },
+  "minSize": {
+    "width": 400,
+    "height": 300
+  }
+}

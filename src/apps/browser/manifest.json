@@ -1,0 +1,18 @@
+{
+  "name": "Browser",
+  "description": "Web browser for browsing the internet",
+  "version": "1.0.0",
+  "icon": "browser.svg",
+  "main": "app.js",
+  "permissions": ["network", "storage"],
+  "categories": ["internet", "utility"],
+  "author": "Kosmo OS Team",
+  "defaultSize": {
+    "width": 1024,
+    "height": 768
+  },
+  "minSize": {
+    "width": 400,
+    "height": 300
+  }
+}
